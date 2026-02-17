@@ -1,0 +1,85 @@
+{
+  "kind": "build_request",
+  "title": "Replace mascot with a realistic version and make learning path content immersive in the target language",
+  "projectName": "Nuru",
+  "priority": "normal",
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "text": "Generate new realistic versions of the Nuru mascot images (do not overwrite existing files), keeping the character recognizable while changing the style to realistic.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-4"
+        ],
+        "quotes": [
+          "change the mascot and make it realistic"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Two new realistic mascot image files are produced in frontend/public/assets/generated with the filenames specified in imageRequirements.edits output targets.",
+        "The new mascot images look realistic (more lifelike rendering/shading/materials) while remaining clearly the same mascot character identity."
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "text": "Update the frontend to use the new realistic mascot images anywhere the mascot is displayed (at minimum: header/logo mascot head and dashboard hero waving mascot), keeping existing layout and sizing intact.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-4"
+        ],
+        "quotes": [
+          "change the mascot and make it realistic"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Header mascot image source is updated to the new realistic head image and renders correctly.",
+        "Dashboard hero mascot image source is updated to the new realistic waving image and renders correctly.",
+        "No layout shifts occur compared to the prior mascot placements (same approximate rendered dimensions and alignment)."
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "text": "Update the learning path experience so that the learning content is taught in the selected target language (culture entry text and conversation practice prompts), rather than being primarily explained in English.",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-4"
+        ],
+        "quotes": [
+          "also change the learning path so that it teaches on the language"
+        ]
+      },
+      "acceptanceCriteria": [
+        "For each seeded language, culture entries delivered by the backend are written primarily in the target language.",
+        "For each seeded language, conversation scenario step prompts delivered by the backend are written primarily in the target language.",
+        "The Learning Path modal shows the updated target-language culture content and the updated target-language conversation prompts for the selected language without frontend crashes or missing content.",
+        "No backend schema migration is required; changes are limited to updating seeded/static content values."
+      ]
+    }
+  ],
+  "constraints": [],
+  "nonGoals": [
+    "Adding new languages beyond the currently seeded set.",
+    "Adding third-party translation services or LLM-based translation.",
+    "Redesigning unrelated pages or changing navigation structure."
+  ],
+  "imageRequirements": {
+    "required": [],
+    "edits": [
+      "Make the mascot head realistic while keeping the same character identity (nuru-mascot-head-genz.dim_256x256.png > nuru-mascot-head-realistic.dim_256x256.png)",
+      "Make the waving mascot realistic while keeping the same character identity (nuru-mascot-waving-genz.dim_1024x1024.png > nuru-mascot-waving-realistic.dim_1024x1024.png)"
+    ]
+  },
+  "userProfileUpdate": {
+    "goalsToAdd": [],
+    "goalsToRemove": [],
+    "preferencesToAdd": [],
+    "preferencesToRemove": [],
+    "miscToAdd": [],
+    "miscToRemove": [],
+    "fieldsToSet": {},
+    "fieldsToDelete": []
+  }
+}

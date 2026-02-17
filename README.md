@@ -1,2 +1,3 @@
-# nuru
-Exported from Caffeine project: Redesign Learning page to feel like Duolingo’s learning path
+## 
+
+To run app build and run docker image: `docker build -t app . docker run -it --network host app`

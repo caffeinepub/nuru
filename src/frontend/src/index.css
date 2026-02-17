@@ -1,0 +1,102 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    :root {
+        --radius: 0.75rem;
+        
+        /* Warm amber/orange theme for Nuru */
+        --background: 0.98 0.02 45;
+        --foreground: 0.25 0.03 30;
+        
+        --card: 1 0 0;
+        --card-foreground: 0.25 0.03 30;
+        
+        --popover: 1 0 0;
+        --popover-foreground: 0.25 0.03 30;
+        
+        --primary: 0.65 0.18 45;
+        --primary-foreground: 0.98 0 0;
+        
+        --secondary: 0.95 0.03 45;
+        --secondary-foreground: 0.35 0.05 35;
+        
+        --muted: 0.95 0.02 45;
+        --muted-foreground: 0.55 0.02 30;
+        
+        --accent: 0.92 0.05 50;
+        --accent-foreground: 0.35 0.05 35;
+        
+        --destructive: 0.55 0.22 25;
+        --destructive-foreground: 0.98 0 0;
+        
+        --border: 0.90 0.02 45;
+        --input: 0.90 0.02 45;
+        --ring: 0.65 0.18 45;
+        
+        --chart-1: 0.65 0.18 45;
+        --chart-2: 0.70 0.15 120;
+        --chart-3: 0.60 0.20 200;
+        --chart-4: 0.75 0.12 280;
+        --chart-5: 0.68 0.16 340;
+    }
+
+    .dark {
+        --background: 0.20 0.02 30;
+        --foreground: 0.95 0.01 45;
+        
+        --card: 0.25 0.02 30;
+        --card-foreground: 0.95 0.01 45;
+        
+        --popover: 0.22 0.02 30;
+        --popover-foreground: 0.95 0.01 45;
+        
+        --primary: 0.70 0.16 45;
+        --primary-foreground: 0.15 0.02 30;
+        
+        --secondary: 0.30 0.03 35;
+        --secondary-foreground: 0.95 0.01 45;
+        
+        --muted: 0.30 0.02 35;
+        --muted-foreground: 0.65 0.02 40;
+        
+        --accent: 0.35 0.04 40;
+        --accent-foreground: 0.95 0.01 45;
+        
+        --destructive: 0.60 0.20 25;
+        --destructive-foreground: 0.15 0.02 30;
+        
+        --border: 0.30 0.02 35;
+        --input: 0.30 0.02 35;
+        --ring: 0.65 0.15 45;
+        
+        --chart-1: 0.70 0.16 45;
+        --chart-2: 0.65 0.18 120;
+        --chart-3: 0.55 0.22 200;
+        --chart-4: 0.72 0.14 280;
+        --chart-5: 0.68 0.18 340;
+    }
+
+    * {
+        @apply border-border;
+    }
+    
+    body {
+        @apply bg-background text-foreground;
+        font-feature-settings: "rlig" 1, "calt" 1;
+    }
+}
+
+@layer utilities {
+    .wave {
+        animation: wave 0.5s ease-in-out;
+        display: inline-block;
+    }
+    
+    @keyframes wave {
+        0%, 100% { transform: rotate(0deg); }
+        25% { transform: rotate(20deg); }
+        75% { transform: rotate(-20deg); }
+    }
+}

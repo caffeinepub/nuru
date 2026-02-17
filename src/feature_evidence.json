@@ -1,0 +1,65 @@
+{
+  "kind": "feature_evidence_report",
+  "features": [
+    {
+      "featureId": "feature-generate-new-realistic-versions-of-the-nuru-mascot-images-do-not-overwrite-existing-files-keeping-the-character-recognizable-while-changing-the-style-to-realistic",
+      "featureTitle": "Generate new realistic versions of the Nuru mascot images (do not overwrite existing files), keeping the character recognizable while changing the style to realistic.",
+      "files": [],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-1"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-update-the-frontend-to-use-the-new-realistic-mascot-images-anywhere-the-mascot-is-displayed-at-minimum-header-logo-mascot-head-and-dashboard-hero-waving-mascot-keeping-existing-layout-and-sizing-intact",
+      "featureTitle": "Update the frontend to use the new realistic mascot images anywhere the mascot is displayed (at minimum: header/logo mascot head and dashboard hero waving mascot), keeping existing layout and sizing intact.",
+      "files": [
+        "frontend/src/components/nuru/AppLayout.tsx",
+        "frontend/src/pages/DashboardPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-2"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-update-the-learning-path-experience-so-that-the-learning-content-is-taught-in-the-selected-target-language-culture-entry-text-and-conversation-practice-prompts-rather-than-being-primarily-explained-in-english",
+      "featureTitle": "Update the learning path experience so that the learning content is taught in the selected target language (culture entry text and conversation practice prompts), rather than being primarily explained in English.",
+      "files": [
+        "frontend/src/components/learning/LearningNodeModal.tsx",
+        "frontend/src/components/learning/learningPathModel.ts",
+        "frontend/src/pages/ConversationPage.tsx",
+        "frontend/src/pages/CulturePage.tsx",
+        "frontend/src/utils/learningContent.ts"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-3"
+      ],
+      "confidence": "high"
+    }
+  ]
+}
