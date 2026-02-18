@@ -1,89 +1,28 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Expand learning units and extend minigame duration",
+  "title": "Add shopping and location learning units (frontend)",
   "requirements": [
     {
-      "id": "REQ-2",
-      "summary": "Increase time limits for all minigames to make gameplay sessions longer",
-      "acceptanceCriteria": [
-        "Time limits in difficulty.ts are increased by at least 50% for all difficulty levels",
-        "All five minigame components reflect the extended time limits",
-        "Users have more time to complete each minigame round"
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/utils/difficulty.ts",
-          "operation": "modify",
-          "description": "Increase the time limit values in the getDifficultyParams function by at least 50% for all difficulty levels (Beginner, Intermediate, Advanced). Update the timeLimit calculations for each game mode to provide users with substantially more time per session."
-        },
-        {
-          "path": "frontend/src/components/minigames/WordMatchGame.tsx",
-          "operation": "modify",
-          "description": "Verify that the component correctly uses the updated time limits from difficulty.ts. Ensure the timer display and countdown logic properly reflect the extended duration."
-        },
-        {
-          "path": "frontend/src/components/minigames/SentenceBuilderGame.tsx",
-          "operation": "modify",
-          "description": "Verify that the component correctly uses the updated time limits from difficulty.ts. Ensure the timer display and countdown logic properly reflect the extended duration."
-        },
-        {
-          "path": "frontend/src/components/minigames/VocabularyQuizGame.tsx",
-          "operation": "modify",
-          "description": "Verify that the component correctly uses the updated time limits from difficulty.ts. Ensure the timer display and countdown logic properly reflect the extended duration."
-        },
-        {
-          "path": "frontend/src/components/minigames/ListeningComprehensionGame.tsx",
-          "operation": "modify",
-          "description": "Verify that the component correctly uses the updated time limits from difficulty.ts. Ensure the timer display and countdown logic properly reflect the extended duration."
-        },
-        {
-          "path": "frontend/src/components/minigames/RepeatableChallenge.tsx",
-          "operation": "modify",
-          "description": "Verify that the component correctly uses the updated time limits from difficulty.ts. Ensure the timer display and countdown logic properly reflect the extended duration."
-        }
-      ]
-    },
-    {
       "id": "REQ-3",
-      "summary": "Increase the number of questions or items per minigame session to extend gameplay duration",
+      "summary": "Ensure new shopping-related conversation scenarios and culture entries appear as unlockable nodes in the learning path",
       "acceptanceCriteria": [
-        "Word Match game has more word pairs per session",
-        "Sentence Builder has more sentences to construct",
-        "Vocabulary Quiz and Listening Comprehension have more questions per session",
-        "Repeatable Challenge has an increased question count",
-        "Item count scaling in difficulty.ts is adjusted upward"
+        "New shopping-related units appear in the LearningPage as nodes in the learning path",
+        "Units are properly grouped and labeled (e.g., 'Unit 3: Shopping & Places', 'Unit 4: Markets & Stores')",
+        "Lock/unlock states work correctly based on completion of previous nodes",
+        "XP rewards are properly awarded upon completion of shopping-related lessons",
+        "The learningPathLimit of 20 nodes is respected and new content is included within this display constraint"
       ],
       "file_operations": [
         {
-          "path": "frontend/src/utils/difficulty.ts",
+          "path": "frontend/src/components/learning/learningPathModel.ts",
           "operation": "modify",
-          "description": "Increase the itemCount values in the getDifficultyParams function for all difficulty levels. Scale up the number of questions/items per session to make each minigame round substantially longer. Adjust the itemCount calculations to provide more content per gameplay session."
+          "description": "Review the buildLearningPath function to verify it correctly interleaves new shopping-related conversation scenarios and culture entries into the learning path. The existing logic already handles grouping content into units (every 4 nodes) and determining lock/unlock states based on user progress. No changes are expected unless the current grouping logic needs adjustment to better accommodate shopping-themed content. Ensure the function continues to respect the learningPathLimit of 20 nodes defined in learningPathLimit.ts."
         },
         {
-          "path": "frontend/src/components/minigames/WordMatchGame.tsx",
+          "path": "frontend/src/pages/LearningPage.tsx",
           "operation": "modify",
-          "description": "Update the word pairs generation logic to use the increased itemCount from difficulty.ts. Ensure the game generates and displays more word pairs per session based on the updated difficulty parameters."
-        },
-        {
-          "path": "frontend/src/components/minigames/SentenceBuilderGame.tsx",
-          "operation": "modify",
-          "description": "Update the sentence selection logic to use the increased itemCount from difficulty.ts. Ensure the game presents more sentences to construct per session based on the updated difficulty parameters."
-        },
-        {
-          "path": "frontend/src/components/minigames/VocabularyQuizGame.tsx",
-          "operation": "modify",
-          "description": "Update the quiz question generation logic to use the increased itemCount from difficulty.ts. Ensure the game presents more vocabulary questions per session based on the updated difficulty parameters."
-        },
-        {
-          "path": "frontend/src/components/minigames/ListeningComprehensionGame.tsx",
-          "operation": "modify",
-          "description": "Update the listening question generation logic to use the increased itemCount from difficulty.ts. Ensure the game presents more listening comprehension questions per session based on the updated difficulty parameters."
-        },
-        {
-          "path": "frontend/src/components/minigames/RepeatableChallenge.tsx",
-          "operation": "modify",
-          "description": "Update the quiz question generation logic to use the increased itemCount from difficulty.ts. Ensure the challenge presents more questions per session based on the updated difficulty parameters."
+          "description": "Verify that the LearningPage correctly renders new shopping-related nodes fetched from the backend. The page already uses useConversationScenarios and useCultureEntries hooks to fetch data and buildLearningPath to construct the node structure. Ensure the LearningNodeModal properly displays shopping-related dialogues and culture content. No changes are expected unless modal rendering needs adjustment for shopping scenarios. The page already handles completion tracking and XP rewards via completeDialogue and completeCultureEntry mutations."
         }
       ]
     }

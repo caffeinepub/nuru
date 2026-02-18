@@ -1,78 +1,82 @@
 {
   "kind": "build_request",
-  "title": "Expand learning units and extend minigame duration",
+  "title": "Add shopping and location learning units",
+  "projectName": "Nuru",
   "priority": "normal",
   "requirements": [
     {
       "id": "REQ-1",
-      "text": "Add more conversation scenarios and culture entries to the backend data for each of the 6 African languages (Arabic, Swahili, Hausa, Amharic, Yoruba, Zulu) to create additional learning path units beyond the current content",
+      "text": "Add new conversation scenarios focused on asking about malls, shops, and places. Include dialogues for finding stores, asking for directions to shopping areas, inquiring about store locations, and asking what shops are nearby.",
       "target": "backend",
       "source": {
         "messageIds": [
           "msg-4"
         ],
         "quotes": [
-          "add more units"
+          "add more units about asking for malls, shops and places"
         ]
       },
       "acceptanceCriteria": [
-        "Each language has at least 3-5 additional conversation scenarios",
-        "Each language has at least 3-5 additional culture entries",
-        "New content is properly seeded in the backend main actor",
-        "Content is organized to create at least 2-3 additional units in the learning path"
+        "At least 3-5 new conversation scenarios added to the backend data for each of the 6 supported languages",
+        "Scenarios cover common shopping-related interactions: finding malls, locating specific shops, asking for directions to stores, and inquiring about nearby shopping areas",
+        "Each scenario follows the existing ConversationScenario structure with prompt, expectedAnswer, and feedback in both English and target language",
+        "Scenarios are appropriately tagged and integrated into the existing conversation data structure"
       ]
     },
     {
       "id": "REQ-2",
-      "text": "Increase the time limits for all minigames (Word Match, Sentence Builder, Vocabulary Quiz, Listening Comprehension, Repeatable Challenge) to make gameplay sessions longer",
-      "target": "frontend",
+      "text": "Add new culture entries about shopping customs, marketplace traditions, and commercial areas in African cultures corresponding to the 6 supported languages (Arabic, Swahili, Hausa, Amharic, Yoruba, Zulu).",
+      "target": "backend",
       "source": {
         "messageIds": [
           "msg-4"
         ],
         "quotes": [
-          "make the mini games longer"
+          "add more units about asking for malls, shops and places"
         ]
       },
       "acceptanceCriteria": [
-        "Time limits in difficulty.ts are increased by at least 50% for all difficulty levels",
-        "All five minigame components reflect the extended time limits",
-        "Users have more time to complete each minigame round"
+        "At least 2-3 new culture entries per language covering shopping etiquette, traditional markets, modern malls, or commercial district customs",
+        "Each entry follows the existing CultureEntry structure with title, content, funFact, and imageUrl in both English and target language",
+        "Content provides cultural context relevant to shopping and commercial interactions in regions where each language is spoken",
+        "Entries are integrated into the backend data and accessible through the existing culture endpoints"
       ]
     },
     {
       "id": "REQ-3",
-      "text": "Increase the number of questions or items per minigame session to extend gameplay duration beyond just time limits",
+      "text": "Ensure the new shopping-related conversation scenarios and culture entries appear as unlockable nodes in the learning path, interleaved according to the existing buildLearningPath logic.",
       "target": "frontend",
       "source": {
         "messageIds": [
           "msg-4"
         ],
         "quotes": [
-          "make the mini games longer"
+          "add more units about asking for malls, shops and places"
         ]
       },
       "acceptanceCriteria": [
-        "Word Match game has more word pairs per session",
-        "Sentence Builder has more sentences to construct",
-        "Vocabulary Quiz and Listening Comprehension have more questions per session",
-        "Repeatable Challenge has an increased question count",
-        "Item count scaling in difficulty.ts is adjusted upward"
+        "New shopping-related units appear in the LearningPage as nodes in the learning path",
+        "Units are properly grouped and labeled (e.g., 'Unit 3: Shopping & Places', 'Unit 4: Markets & Stores')",
+        "Lock/unlock states work correctly based on completion of previous nodes",
+        "XP rewards are properly awarded upon completion of shopping-related lessons",
+        "The learningPathLimit of 20 nodes is respected and new content is included within this display constraint"
       ]
     }
   ],
   "constraints": [
     "Maintain the single-actor architecture in backend/main.mo",
-    "Preserve the existing learning path node limit of 20 from learningPathLimit.ts",
-    "Keep all existing minigame mechanics and UI patterns intact",
-    "Ensure new content follows the same structure as existing conversation scenarios and culture entries"
+    "Follow the existing ConversationScenario and CultureEntry type structures",
+    "Do not modify immutable frontend paths (useInternetIdentity.ts, useActor.ts, main.tsx, components/ui)",
+    "New content must support all 6 existing languages: Arabic, Swahili, Hausa, Amharic, Yoruba, Zulu",
+    "Respect the 20-node display limit defined in learningPathLimit.ts"
   ],
   "nonGoals": [
-    "Adding new minigame types or game modes",
-    "Changing the learning path visualization or layout",
-    "Modifying the XP reward system or progression model",
+    "Creating new minigames for shopping scenarios",
+    "Modifying the existing minigame configurations or difficulty scaling",
     "Adding new languages beyond the existing 6",
-    "Changing authentication or user profile functionality"
+    "Changing the learning path UI layout or node visualization",
+    "Implementing real shopping or e-commerce features",
+    "Adding maps or geolocation functionality"
   ],
   "imageRequirements": {
     "required": [],

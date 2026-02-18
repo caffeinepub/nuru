@@ -114,8 +114,6 @@ actor {
   ]);
 
   let conversationScenarios = List.fromArray<ConversationScenario>([
-    // Previous content remains unchanged...
-    // Added new conversation scenarios for each language
     {
       id = 17;
       languageId = 1;
@@ -137,29 +135,34 @@ actor {
           prompt = "Request a discount in Arabic.";
           expectedResponse = "هل يوجد تخفيض؟ (Hal yujad takhfidh?)";
         },
+        {
+          speaker = "Teacher";
+          prompt = "Ask where the nearest store is in Arabic.";
+          expectedResponse = "أين أقرب متجر؟ (Ayn aqrab matjir?)";
+        },
       ];
       xpReward = 25;
     },
     {
       id = 18;
       languageId = 2;
-      title = "Swahili Restaurant Talk";
-      description = "Practice restaurant conversation in Swahili.";
+      title = "Swahili Shopping Experience";
+      description = "Navigate shopping situations using Swahili language skills.";
       steps = [
         {
           speaker = "Instructor";
-          prompt = "Ask for the menu in Swahili.";
-          expectedResponse = "Naomba menyu tafadhali.";
+          prompt = "Ask for the price in Swahili.";
+          expectedResponse = "Pesa ngapi?";
         },
         {
           speaker = "Instructor";
-          prompt = "Order grilled chicken with rice.";
-          expectedResponse = "Naomba kuku wa kukaanga na wali.";
+          prompt = "Request to buy an item in Swahili.";
+          expectedResponse = "Ningependa kununua hii";
         },
         {
           speaker = "Instructor";
-          prompt = "Say thank you in Swahili.";
-          expectedResponse = "Asante sana.";
+          prompt = "Inquire about nearby shops in Swahili.";
+          expectedResponse = "Duka la karibu liko wapi?";
         },
       ];
       xpReward = 20;
@@ -167,23 +170,23 @@ actor {
     {
       id = 19;
       languageId = 3;
-      title = "Hausa Travel Navigation";
-      description = "Learn phrases for travel and navigation in Hausa.";
+      title = "Hausa Shopping Encounters";
+      description = "Master negotiation and shopping vocabulary in Hausa.";
       steps = [
         {
           speaker = "Teacher";
-          prompt = "Ask 'Which way to the station?' in Hausa.";
-          expectedResponse = "Ina hanya zuwa tashar mota?";
+          prompt = "Ask about the price in Hausa.";
+          expectedResponse = "Nawa ne kudinsa?";
         },
         {
           speaker = "Teacher";
-          prompt = "Say 'I would like a ticket.' in Hausa.";
-          expectedResponse = "Ina so tikiti daya";
+          prompt = "Request a discount in Hausa.";
+          expectedResponse = "Za a kawo sauki?";
         },
         {
           speaker = "Teacher";
-          prompt = "Ask for assistance in Hausa.";
-          expectedResponse = "Don Allah, za ka taimaka mini?";
+          prompt = "Inquire about mall locations in Hausa.";
+          expectedResponse = "Ina kasuwa mafi kusa take?";
         },
       ];
       xpReward = 30;
@@ -191,23 +194,23 @@ actor {
     {
       id = 20;
       languageId = 4;
-      title = "Amharic Directions | አማራኛ አቅጣጫ";
-      description = "Learn basic directions and navigation in Amharic.";
+      title = "Amharic Marketplace Conversations";
+      description = "Explore buying and selling scenarios in Amharic.";
       steps = [
         {
           speaker = "Instructor";
-          prompt = "Ask 'Where is the hospital?' in Amharic.";
-          expectedResponse = "ሆስፒታሉ የት ነው? (Hospital yet new?)";
+          prompt = "Ask for the price in Amharic.";
+          expectedResponse = "ዋጋ ስንት ነው (Waga sint new?)";
         },
         {
           speaker = "Instructor";
-          prompt = "Say 'I am looking for the bus stop.'";
-          expectedResponse = "የአውቶቢስ ማቆሚያን እሻላለሁ (Etautobis maqomiachalalhu)";
+          prompt = "Request help finding stores in Amharic.";
+          expectedResponse = "ሱቅ የት ነው (Suk yet new?)";
         },
         {
           speaker = "Instructor";
-          prompt = "Ask for help in Amharic.";
-          expectedResponse = "ይህን ማግኘት እችላለሁ? (Yihn magenit chelalhu?)";
+          prompt = "Ask for product variety in Amharic.";
+          expectedResponse = "የበለይ አምራቾች አሉ? (Yebeley amirachoch alu)";
         },
       ];
       xpReward = 25;
@@ -215,23 +218,23 @@ actor {
     {
       id = 21;
       languageId = 5;
-      title = "Yoruba Shopping Phrases";
-      description = "Practice shopping related conversations in Yoruba.";
+      title = "Yoruba Shopping Adventure";
+      description = "Engage in Yoruba shopping conversations.";
       steps = [
         {
           speaker = "Instructor";
-          prompt = "Ask 'How much is this?' in Yoruba.";
+          prompt = "Ask for the price in Yoruba.";
           expectedResponse = "Eelo ni eyi?";
         },
         {
           speaker = "Instructor";
-          prompt = "Say 'I would like to buy this.'";
-          expectedResponse = "Mo fe ra eyi";
+          prompt = "Request directions to the shopping area in Yoruba.";
+          expectedResponse = "Ibo ni ibi to ta awọn ọja";
         },
         {
           speaker = "Instructor";
-          prompt = "Ask for a discount in Yoruba.";
-          expectedResponse = "Se e le fun mi ni idinku ojo?";
+          prompt = "Inquire about discounts in Yoruba.";
+          expectedResponse = "Se e le fun mi ni idinku odo?";
         },
       ];
       xpReward = 20;
@@ -239,34 +242,31 @@ actor {
     {
       id = 22;
       languageId = 6;
-      title = "Zulu Travel Phrases";
-      description = "Learn basic travel and direction phrases in Zulu.";
+      title = "Zulu Shopping Scenarios";
+      description = "Practice Zulu phrases for various shopping situations.";
       steps = [
         {
           speaker = "Instructor";
-          prompt = "Ask for directions to the bus station in Zulu.";
-          expectedResponse = "Ngicela ukubuza indlela eya esiteshini sebhasini";
+          prompt = "Ask for the price in Zulu.";
+          expectedResponse = "Kuyabiza malini lokhu?";
         },
         {
           speaker = "Instructor";
-          prompt = "Say you want a ticket in Zulu.";
-          expectedResponse = "Ngithanda ithikithi elilodwa";
+          prompt = "Request help finding a shop in Zulu.";
+          expectedResponse = "Ngicela noma usizo thola isitolo";
         },
         {
           speaker = "Instructor";
-          prompt = "Ask for help in Zulu.";
-          expectedResponse = "Ngiyacela ungisize?";
+          prompt = "Inquire about discounts in Zulu.";
+          expectedResponse = "Ngabe kunokuthoba intengo?";
         },
       ];
       xpReward = 25;
     },
-    // Additional scenarios for each language added here...
   ]);
 
   let cultureEntries = List.empty<CultureEntry>();
   let allCultureContent = List.fromArray<CultureContent>([
-    // Previous culture content remains unchanged...
-    // New culture entries added for expanding units
     {
       title = "Arabic Shopping Culture | ثقافة التسوق العربية";
       content = "Bartering and negotiation are common in Arabic markets. | المساومة والتفاوض شائعان في الأسواق العربية.";
@@ -296,20 +296,19 @@ actor {
       xpReward = 15;
     },
     {
-      title = "Yoruba Celebrations | Ayeye Yoruba";
-      content = "Celebrations in Yoruba culture are colorful and vibrant. | Awọn ayeye ni aṣa Yoruba ni awọ pupọ ati idunnu.";
-      languageText = "Music and storytelling play a major role in Yoruba gatherings.";
-      translatedText = "Celebrations symbolize the importance of family and community in Yoruba life.";
+      title = "Yoruba Shopping Culture | Asà iná Yoruba";
+      content = "Bargaining is an integral part of Yoruba shopping experiences. | Idasilẹyọ jẹ’ apakan pataki ti ìrágbára rira ni Yoruba.";
+      languageText = "Markets are bustling centers of economic and social activity. | Awọn ọja jẹ́ ile-iṣẹ iṣe-aje ati ọja.";
+      translatedText = "Shopping in Yoruba culture is deeply rooted in tradition, family, and celebration.";
       xpReward = 15;
     },
     {
-      title = "Zulu Celebratory Dances | Ukudansa kwe Zulu";
-      content = "Zulu celebrations are known for their spectacular dances and music.";
-      languageText = "Traditional dance events are essential cultural experiences in Zulu society.";
-      translatedText = "Zulu celebrations reflect respect for traditions, elders, and community unity.";
+      title = "Zulu Shopping Traditions | Isiko Zoku Thenga kwe Zulu";
+      content = "Traditional markets play a vital role in Zulu commerce. | Izimakethe zendabuko zenza indima ebalulekile ezohwebo zamaZulu.";
+      languageText = "Negotiation and friendly interactions are common in Zulu shopping. | Uxoxiswano oluhle luyavunyelwa ezitolo zamaZulu.";
+      translatedText = "Zulu shopping culture is vibrant, inclusive, and reflective of community values.";
       xpReward = 15;
     },
-    // Additional culture entries for each language added here...
   ]);
 
   let minigameConfigs = List.fromArray<MinigameConfig>([
@@ -360,7 +359,6 @@ actor {
   let accessControlState = AccessControl.initState();
   include MixinAuthorization(accessControlState);
 
-  // Helper functions for conversion
   func listRangeToArray<T>(lst : List.List<T>, start : Nat, len : Nat) : [T] {
     if (start >= lst.size()) { return [] };
     let remaining = lst.size() - start;
@@ -402,8 +400,7 @@ actor {
   };
 
   public query ({ caller }) func getCultureEntries(languageId : Nat, offset : Nat, limit : Nat) : async [CultureContent] {
-    let allContent = allCultureContent;
-    listRangeToArray(allContent, offset, limit);
+    listRangeToArray(allCultureContent, offset, limit);
   };
 
   public query ({ caller }) func getMinigameConfigs(languageId : Nat, offset : Nat, limit : Nat) : async [MinigameConfig] {

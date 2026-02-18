@@ -1,20 +1,42 @@
 {
   "kind": "spec_vs_diff_report",
   "version": "1.0",
-  "generatedAt": "2026-02-18T19:12:06.319Z",
-  "summary": "All three requirements have been fully implemented. The backend now includes expanded conversation scenarios and culture entries for all 6 African languages. The frontend difficulty.ts configuration increases time limits by 50%+ and item counts across all five minigames. All minigame components reflect these extended configurations through getGameModeScaling.",
-  "missing_requirements": [],
+  "generatedAt": "2026-02-18T19:19:42.382Z",
+  "summary": "The diff shows partial implementation of shopping-related conversation scenarios in backend/main.mo, but the changes are heavily truncated. Only scenarios for Arabic (id=17) and partial Swahili (id=18) are visible. There is no evidence of culture entries, frontend integration, or complete coverage across all 6 languages.",
+  "missing_requirements": [
+    {
+      "id": "REQ-1",
+      "requirement": "Complete conversation scenarios for all 6 languages (only Arabic and partial Swahili visible in truncated diff)",
+      "reason": "Diff shows only 2 conversation scenarios (Arabic id=17, Swahili id=18 truncated). REQ-1 requires 3-5 scenarios per language across 6 languages (18-30 total scenarios). Hausa, Amharic, Yoruba, and Zulu scenarios are not visible.",
+      "evidence": [
+        "backend/main.mo"
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "requirement": "Add culture entries about shopping customs and marketplace traditions for all 6 languages",
+      "reason": "No CultureEntry instances related to shopping customs, marketplace traditions, or commercial areas are visible in the diff. REQ-2 requires 2-3 culture entries per language (12-18 total entries).",
+      "evidence": [
+        "backend/main.mo"
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "requirement": "Frontend integration to display new shopping units as unlockable nodes in the learning path",
+      "reason": "No frontend files were modified. REQ-3 requires changes to ensure new content appears in LearningPage with proper grouping (e.g., 'Unit 3: Shopping & Places'), lock/unlock states, and XP rewards.",
+      "evidence": []
+    },
+    {
+      "id": "REQ-3",
+      "requirement": "Unit grouping and labeling for shopping-related content",
+      "reason": "No evidence of unit labeling logic (e.g., 'Unit 3: Shopping & Places', 'Unit 4: Markets & Stores') in the diff. This requires frontend or backend changes to support proper unit grouping.",
+      "evidence": []
+    }
+  ],
   "hallucinated_features": [],
-  "confidence": 0.95,
+  "confidence": 0.65,
   "changed_files": [
     "backend/main.mo",
-    "frontend-file-summaries.txt",
-    "frontend/src/components/minigames/ListeningComprehensionGame.tsx",
-    "frontend/src/components/minigames/RepeatableChallenge.tsx",
-    "frontend/src/components/minigames/SentenceBuilderGame.tsx",
-    "frontend/src/components/minigames/VocabularyQuizGame.tsx",
-    "frontend/src/components/minigames/WordMatchGame.tsx",
-    "frontend/src/utils/difficulty.ts",
     "project_state.json"
   ]
 }
