@@ -32,7 +32,10 @@ export default function LearningPathNode({ node, onClick, position }: LearningPa
           "inline-block max-w-xs",
           position === 'left' ? 'text-right' : 'text-left'
         )}>
-          <h4 className="font-semibold text-sm mb-1">{node.title}</h4>
+          <h4 className={cn(
+            "font-semibold text-sm mb-1",
+            node.isLocked && "text-muted-foreground"
+          )}>{node.title}</h4>
           <div className={cn(
             "flex items-center gap-2 text-xs text-muted-foreground",
             position === 'left' ? 'justify-end' : 'justify-start'
@@ -54,15 +57,16 @@ export default function LearningPathNode({ node, onClick, position }: LearningPa
       {/* Circular Node */}
       <button
         onClick={onClick}
-        disabled={false}
+        disabled={node.isLocked}
         className={cn(
           nodeSize,
           "relative rounded-full flex items-center justify-center transition-all duration-300 z-10 shadow-lg",
-          "hover:scale-110 active:scale-95",
+          !node.isLocked && "hover:scale-110 active:scale-95 cursor-pointer",
+          node.isLocked && "cursor-not-allowed opacity-60",
           node.isCompleted && "bg-gradient-to-br from-green-400 to-green-600 ring-4 ring-green-200 dark:ring-green-900",
           !node.isCompleted && !node.isLocked && `bg-gradient-to-br ${nodeColor}`,
           node.isLocked && !node.isCompleted && "bg-gradient-to-br from-gray-300 to-gray-400 dark:from-gray-700 dark:to-gray-800",
-          node.isNextUp && "ring-4 ring-amber-400 dark:ring-amber-600 animate-pulse"
+          node.isNextUp && !node.isLocked && "ring-4 ring-amber-400 dark:ring-amber-600 animate-pulse"
         )}
       >
         {node.isCompleted ? (

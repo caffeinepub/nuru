@@ -7,7 +7,7 @@ import { Trophy, ArrowLeft, CheckCircle2, XCircle } from 'lucide-react';
 import { useCompleteMinigame } from '../../hooks/useQueries';
 import { useInternetIdentity } from '../../hooks/useInternetIdentity';
 import { toast } from 'sonner';
-import { calculateDifficulty } from '../../utils/difficulty';
+import { calculateDifficulty, getGameModeScaling } from '../../utils/difficulty';
 import { GameMode } from '../../backend';
 
 interface VocabularyQuizGameProps {
@@ -16,36 +16,48 @@ interface VocabularyQuizGameProps {
   userLevel: number;
 }
 
+// Expanded vocabulary questions for longer gameplay
 const vocabularyQuestions = {
-  1: [ // Yoruba
-    { question: 'What does "Bawo" mean?', answer: 'Hello/How are you', options: ['Hello/How are you', 'Goodbye', 'Thank you', 'Please'] },
-    { question: 'What does "Eso" mean?', answer: 'Fruit', options: ['Fruit', 'Water', 'Food', 'House'] },
-    { question: 'What does "Ile-iwe" mean?', answer: 'School', options: ['School', 'Market', 'Home', 'Church'] },
-    { question: 'What does "Ojo" mean?', answer: 'Day', options: ['Day', 'Night', 'Morning', 'Evening'] },
-    { question: 'What does "Omi" mean?', answer: 'Water', options: ['Water', 'Fire', 'Air', 'Earth'] },
-    { question: 'What does "Onje" mean?', answer: 'Food', options: ['Food', 'Drink', 'Plate', 'Spoon'] },
+  1: [ // Arabic
+    { question: 'What is "Hello" in Arabic?', answer: 'مرحبا', options: ['مرحبا', 'شكرا', 'وداعا', 'نعم'] },
+    { question: 'What is "Thank you" in Arabic?', answer: 'شكرا', options: ['مرحبا', 'شكرا', 'وداعا', 'لا'] },
+    { question: 'What is "Water" in Arabic?', answer: 'ماء', options: ['ماء', 'طعام', 'بيت', 'كتاب'] },
+    { question: 'What is "Food" in Arabic?', answer: 'طعام', options: ['ماء', 'طعام', 'بيت', 'كتاب'] },
+    { question: 'What is "House" in Arabic?', answer: 'بيت', options: ['ماء', 'طعام', 'بيت', 'كتاب'] },
+    { question: 'What is "Book" in Arabic?', answer: 'كتاب', options: ['ماء', 'طعام', 'بيت', 'كتاب'] },
+    { question: 'What is "Friend" in Arabic?', answer: 'صديق', options: ['صديق', 'عائلة', 'مدرسة', 'سوق'] },
+    { question: 'What is "Family" in Arabic?', answer: 'عائلة', options: ['صديق', 'عائلة', 'مدرسة', 'سوق'] },
+    { question: 'What is "Yes" in Arabic?', answer: 'نعم', options: ['نعم', 'لا', 'من فضلك', 'شكرا'] },
+    { question: 'What is "No" in Arabic?', answer: 'لا', options: ['نعم', 'لا', 'من فضلك', 'شكرا'] },
   ],
   2: [ // Swahili
-    { question: 'What does "Habari" mean?', answer: 'News/How are you', options: ['News/How are you', 'Goodbye', 'Thank you', 'Please'] },
-    { question: 'What does "Chakula" mean?', answer: 'Food', options: ['Food', 'Water', 'House', 'School'] },
-    { question: 'What does "Maji" mean?', answer: 'Water', options: ['Water', 'Fire', 'Air', 'Earth'] },
-    { question: 'What does "Shule" mean?', answer: 'School', options: ['School', 'Market', 'Home', 'Church'] },
-    { question: 'What does "Nyumba" mean?', answer: 'House', options: ['House', 'Car', 'Tree', 'Road'] },
-    { question: 'What does "Siku" mean?', answer: 'Day', options: ['Day', 'Night', 'Week', 'Month'] },
+    { question: 'What is "Hello" in Swahili?', answer: 'Jambo', options: ['Jambo', 'Asante', 'Kwaheri', 'Ndiyo'] },
+    { question: 'What is "Thank you" in Swahili?', answer: 'Asante', options: ['Jambo', 'Asante', 'Kwaheri', 'Hapana'] },
+    { question: 'What is "Water" in Swahili?', answer: 'Maji', options: ['Maji', 'Chakula', 'Nyumba', 'Kitabu'] },
+    { question: 'What is "Food" in Swahili?', answer: 'Chakula', options: ['Maji', 'Chakula', 'Nyumba', 'Kitabu'] },
+    { question: 'What is "House" in Swahili?', answer: 'Nyumba', options: ['Maji', 'Chakula', 'Nyumba', 'Kitabu'] },
+    { question: 'What is "Book" in Swahili?', answer: 'Kitabu', options: ['Maji', 'Chakula', 'Nyumba', 'Kitabu'] },
+    { question: 'What is "Friend" in Swahili?', answer: 'Rafiki', options: ['Rafiki', 'Familia', 'Shule', 'Soko'] },
+    { question: 'What is "Family" in Swahili?', answer: 'Familia', options: ['Rafiki', 'Familia', 'Shule', 'Soko'] },
+    { question: 'What is "Yes" in Swahili?', answer: 'Ndiyo', options: ['Ndiyo', 'Hapana', 'Tafadhali', 'Asante'] },
+    { question: 'What is "No" in Swahili?', answer: 'Hapana', options: ['Ndiyo', 'Hapana', 'Tafadhali', 'Asante'] },
   ],
 };
 
 export default function VocabularyQuizGame({ config, onExit, userLevel }: VocabularyQuizGameProps) {
   const { identity } = useInternetIdentity();
   const completeMinigame = useCompleteMinigame();
-  const [timeLeft, setTimeLeft] = useState(Number(config.timeLimit || 120));
+  
+  const modeScaling = getGameModeScaling(userLevel, 'vocabularyQuiz');
+  const difficulty = calculateDifficulty(userLevel, modeScaling);
+  
+  const [timeLeft, setTimeLeft] = useState(difficulty.timeLimit);
   const [score, setScore] = useState(0);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
   const [showResult, setShowResult] = useState(false);
   const [gameOver, setGameOver] = useState(false);
 
-  const difficulty = calculateDifficulty(userLevel, { timeLimit: Number(config.timeLimit || 120), itemCount: 6 });
   const languageId = Number(config.languageId);
   const allQuestions = vocabularyQuestions[languageId as keyof typeof vocabularyQuestions] || vocabularyQuestions[1];
   const questions = allQuestions.slice(0, difficulty.itemCount);
@@ -110,7 +122,7 @@ export default function VocabularyQuizGame({ config, onExit, userLevel }: Vocabu
     }
   };
 
-  const progressPercent = (timeLeft / Number(config.timeLimit || 120)) * 100;
+  const progressPercent = (timeLeft / difficulty.timeLimit) * 100;
 
   return (
     <div className="max-w-4xl mx-auto space-y-6">
@@ -141,9 +153,11 @@ export default function VocabularyQuizGame({ config, onExit, userLevel }: Vocabu
 
           {!gameOver && currentQuestion ? (
             <div className="space-y-6 mt-6">
-              <div className="p-6 bg-muted rounded-lg">
-                <h3 className="text-xl font-semibold text-center">{currentQuestion.question}</h3>
-              </div>
+              <Card className="bg-muted/50">
+                <CardContent className="pt-6">
+                  <p className="text-lg font-medium">{currentQuestion.question}</p>
+                </CardContent>
+              </Card>
 
               <div className="grid gap-3">
                 {currentQuestion.options.map((option, index) => {

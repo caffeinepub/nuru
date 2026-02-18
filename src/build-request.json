@@ -1,85 +1,81 @@
 {
   "kind": "build_request",
-  "title": "Replace mascot with a realistic version and make learning path content immersive in the target language",
-  "projectName": "Nuru",
+  "title": "Expand learning units and extend minigame duration",
   "priority": "normal",
   "requirements": [
     {
       "id": "REQ-1",
-      "text": "Generate new realistic versions of the Nuru mascot images (do not overwrite existing files), keeping the character recognizable while changing the style to realistic.",
-      "target": "frontend",
+      "text": "Add more conversation scenarios and culture entries to the backend data for each of the 6 African languages (Arabic, Swahili, Hausa, Amharic, Yoruba, Zulu) to create additional learning path units beyond the current content",
+      "target": "backend",
       "source": {
         "messageIds": [
           "msg-4"
         ],
         "quotes": [
-          "change the mascot and make it realistic"
+          "add more units"
         ]
       },
       "acceptanceCriteria": [
-        "Two new realistic mascot image files are produced in frontend/public/assets/generated with the filenames specified in imageRequirements.edits output targets.",
-        "The new mascot images look realistic (more lifelike rendering/shading/materials) while remaining clearly the same mascot character identity."
+        "Each language has at least 3-5 additional conversation scenarios",
+        "Each language has at least 3-5 additional culture entries",
+        "New content is properly seeded in the backend main actor",
+        "Content is organized to create at least 2-3 additional units in the learning path"
       ]
     },
     {
       "id": "REQ-2",
-      "text": "Update the frontend to use the new realistic mascot images anywhere the mascot is displayed (at minimum: header/logo mascot head and dashboard hero waving mascot), keeping existing layout and sizing intact.",
+      "text": "Increase the time limits for all minigames (Word Match, Sentence Builder, Vocabulary Quiz, Listening Comprehension, Repeatable Challenge) to make gameplay sessions longer",
       "target": "frontend",
       "source": {
         "messageIds": [
           "msg-4"
         ],
         "quotes": [
-          "change the mascot and make it realistic"
+          "make the mini games longer"
         ]
       },
       "acceptanceCriteria": [
-        "Header mascot image source is updated to the new realistic head image and renders correctly.",
-        "Dashboard hero mascot image source is updated to the new realistic waving image and renders correctly.",
-        "No layout shifts occur compared to the prior mascot placements (same approximate rendered dimensions and alignment)."
+        "Time limits in difficulty.ts are increased by at least 50% for all difficulty levels",
+        "All five minigame components reflect the extended time limits",
+        "Users have more time to complete each minigame round"
       ]
     },
     {
       "id": "REQ-3",
-      "text": "Update the learning path experience so that the learning content is taught in the selected target language (culture entry text and conversation practice prompts), rather than being primarily explained in English.",
-      "target": "both",
+      "text": "Increase the number of questions or items per minigame session to extend gameplay duration beyond just time limits",
+      "target": "frontend",
       "source": {
         "messageIds": [
           "msg-4"
         ],
         "quotes": [
-          "also change the learning path so that it teaches on the language"
+          "make the mini games longer"
         ]
       },
       "acceptanceCriteria": [
-        "For each seeded language, culture entries delivered by the backend are written primarily in the target language.",
-        "For each seeded language, conversation scenario step prompts delivered by the backend are written primarily in the target language.",
-        "The Learning Path modal shows the updated target-language culture content and the updated target-language conversation prompts for the selected language without frontend crashes or missing content.",
-        "No backend schema migration is required; changes are limited to updating seeded/static content values."
+        "Word Match game has more word pairs per session",
+        "Sentence Builder has more sentences to construct",
+        "Vocabulary Quiz and Listening Comprehension have more questions per session",
+        "Repeatable Challenge has an increased question count",
+        "Item count scaling in difficulty.ts is adjusted upward"
       ]
     }
   ],
-  "constraints": [],
+  "constraints": [
+    "Maintain the single-actor architecture in backend/main.mo",
+    "Preserve the existing learning path node limit of 20 from learningPathLimit.ts",
+    "Keep all existing minigame mechanics and UI patterns intact",
+    "Ensure new content follows the same structure as existing conversation scenarios and culture entries"
+  ],
   "nonGoals": [
-    "Adding new languages beyond the currently seeded set.",
-    "Adding third-party translation services or LLM-based translation.",
-    "Redesigning unrelated pages or changing navigation structure."
+    "Adding new minigame types or game modes",
+    "Changing the learning path visualization or layout",
+    "Modifying the XP reward system or progression model",
+    "Adding new languages beyond the existing 6",
+    "Changing authentication or user profile functionality"
   ],
   "imageRequirements": {
     "required": [],
-    "edits": [
-      "Make the mascot head realistic while keeping the same character identity (nuru-mascot-head-genz.dim_256x256.png > nuru-mascot-head-realistic.dim_256x256.png)",
-      "Make the waving mascot realistic while keeping the same character identity (nuru-mascot-waving-genz.dim_1024x1024.png > nuru-mascot-waving-realistic.dim_1024x1024.png)"
-    ]
-  },
-  "userProfileUpdate": {
-    "goalsToAdd": [],
-    "goalsToRemove": [],
-    "preferencesToAdd": [],
-    "preferencesToRemove": [],
-    "miscToAdd": [],
-    "miscToRemove": [],
-    "fieldsToSet": {},
-    "fieldsToDelete": []
+    "edits": []
   }
 }

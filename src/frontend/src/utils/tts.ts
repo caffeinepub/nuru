@@ -8,6 +8,24 @@ const LANGUAGE_CODE_MAP: Record<number, string> = {
   6: 'zu', // Zulu
 };
 
+// Language ID to BCP-47 language code mapping for speech recognition (with region codes)
+const SPEECH_RECOGNITION_CODE_MAP: Record<number, string> = {
+  1: 'ar-SA', // Arabic (Saudi Arabia)
+  2: 'sw-KE', // Swahili (Kenya)
+  3: 'ha-NG', // Hausa (Nigeria)
+  4: 'am-ET', // Amharic (Ethiopia)
+  5: 'yo-NG', // Yoruba (Nigeria)
+  6: 'zu-ZA', // Zulu (South Africa)
+};
+
+/**
+ * Get the language code for speech recognition based on language ID
+ */
+export function getLanguageCodeForSpeech(languageId: bigint): string {
+  const id = Number(languageId);
+  return SPEECH_RECOGNITION_CODE_MAP[id] || 'en-US';
+}
+
 /**
  * Get the best available voice for a given language ID
  */

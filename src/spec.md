@@ -1,11 +1,12 @@
 # Specification
 
 ## Summary
-**Goal:** Replace the Nuru mascot visuals with realistic versions and make learning-path content immersive by presenting culture and conversation prompts primarily in the selected target language.
+**Goal:** Expand learning content with additional units for all languages and extend minigame duration.
 
 **Planned changes:**
-- Create new realistic versions of the mascot head and waving mascot images without overwriting existing files.
-- Update the frontend to use the new realistic mascot images wherever the mascot appears (at minimum: header mascot head and dashboard hero waving mascot) while keeping layout/sizing unchanged.
-- Update seeded/static learning-path content so culture entries and conversation practice prompts are written primarily in the target language for each currently seeded language (no schema changes).
+- Add 3-5 additional conversation scenarios and culture entries for each of the 6 African languages
+- Organize new content into 2-3 additional learning path units per language
+- Increase minigame time limits by at least 50% across all difficulty levels
+- Increase the number of questions/items per minigame session
 
-**User-visible outcome:** The app shows a more realistic Nuru mascot in the header and dashboard, and the Learning Path modal displays culture content and conversation prompts primarily in the chosen target language instead of English.
+**User-visible outcome:** Users can access more learning units for each language and experience longer minigame sessions with more questions and extended time limits.

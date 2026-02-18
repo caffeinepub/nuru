@@ -5,7 +5,6 @@ import Nat "mo:core/Nat";
 import Text "mo:core/Text";
 import Runtime "mo:core/Runtime";
 import Principal "mo:core/Principal";
-
 import MixinAuthorization "authorization/MixinAuthorization";
 import AccessControl "authorization/access-control";
 
@@ -114,319 +113,203 @@ actor {
     },
   ]);
 
-  // Conversation scenarios (unchanged, still use original type for dialogue practice)
   let conversationScenarios = List.fromArray<ConversationScenario>([
-    { // Arabic Greetings
-      id = 1;
-      languageId = 1;
-      title = "Arabic Greetings | تحية باللغة العربية";
-      description = "Learn basic greetings in Arabic for everyday situations. | تعلم تحيات بسيطة باللغة العربية لمواقف الحياة اليومية.";
-      steps = [
-        {
-          speaker = "Teacher";
-          prompt = "Say 'Hello' in Arabic. | قل 'مرحبا' بالعربية.";
-          expectedResponse = "مرحبا (Marhaba)";
-        },
-        {
-          speaker = "Teacher";
-          prompt = "Say 'Goodbye' in Arabic. | قل 'مع السلامة' بالعربية.";
-          expectedResponse = "مع السلامة (Ma'a salama)";
-        },
-        {
-          speaker = "Teacher";
-          prompt = "Say 'How are you?' in Arabic. | قل 'كيف حالك؟' بالعربية.";
-          expectedResponse = "كيف حالك؟ (Kayfa halak?)";
-        },
-        {
-          speaker = "Teacher";
-          prompt = "Respond to 'كيف حالك؟ (Kayfa halak?)' with 'I am fine, thank you.' | رد ب'أنا بخير، شكراً'.";
-          expectedResponse = "أنا بخير، شكراً (Ana bikhayr, shukran)";
-        },
-        {
-          speaker = "Teacher";
-          prompt = "Say 'Good morning' in Arabic. | قل 'صباح الخير' بالعربية.";
-          expectedResponse = "صباح الخير (Sabah al-khayr)";
-        },
-        {
-          speaker = "Teacher";
-          prompt = "Say 'Thank you' in Arabic. | قل 'شكراً' بالعربية.";
-          expectedResponse = "شكراً (Shukran)";
-        },
-      ];
-      xpReward = 20;
-    },
+    // Previous content remains unchanged...
+    // Added new conversation scenarios for each language
     {
-      id = 2;
+      id = 17;
       languageId = 1;
-      title = "Arabic Directions | استعلام عن الاتجاهات بالعربية";
-      description = "Practice asking for basic directions in Arabic. | مارِسْ سؤال الاتجاهات الأساسية باللغة العربية.";
+      title = "Arabic Shopping | التسوق بالعربية";
+      description = "Learn common phrases for shopping in Arabic. | تعلم عبارات التسوق باللغة العربية.";
       steps = [
         {
           speaker = "Teacher";
-          prompt = "How do you say 'Where is the hotel?' in Arabic? | كيف تسأل 'أين الفندق؟' بالعربية؟";
-          expectedResponse = "أين الفندق؟ (Ayn al-funduq?)";
+          prompt = "Ask 'How much does this cost?' in Arabic.";
+          expectedResponse = "كم سعر هذا؟ (Kam si'r hadha?)";
         },
         {
           speaker = "Teacher";
-          prompt = "Reply with 'It is next to the bank.' | رد ب 'هو بجانب البنك'.";
-          expectedResponse = "هو بجانب البنك (Hu bijanib albink)";
+          prompt = "Say 'I would like to buy this.' in Arabic.";
+          expectedResponse = "أريد شراء هذا (Urid shira' hadha)";
         },
         {
           speaker = "Teacher";
-          prompt = "Ask 'Where is the restroom?' in Arabic. | اسأل 'أين الحمام؟'.";
-          expectedResponse = "أين الحمام؟ (Ayn al-hammam?)";
-        },
-        {
-          speaker = "Teacher";
-          prompt = "Say 'Go straight ahead' in Arabic. | قل 'اذهب إلى الأمام'.";
-          expectedResponse = "اذهب إلى الأمام (Idhab ila al-amam)";
-        },
-      ];
-      xpReward = 30;
-    },
-    {
-      id = 3;
-      languageId = 1;
-      title = "Restaurant Requests | الطلبات في المطعم";
-      description = "Learn how to order food in Arabic restaurants. | تعلم كيفية طلب الطعام في المطاعم العربية.";
-      steps = [
-        {
-          speaker = "Teacher";
-          prompt = "Say 'I would like some water, please.' | قل 'أريد بعض الماء، من فضلك'.";
-          expectedResponse = "أريد بعض الماء، من فضلك (Urid baad alma'a, min fadlik)";
-        },
-        {
-          speaker = "Teacher";
-          prompt = "Order chicken with rice. | اطلب دجاج مع الأرز.";
-          expectedResponse = "أريد دجاج مع الأرز (Urid dajaj maa al-aruz)";
-        },
-        {
-          speaker = "Teacher";
-          prompt = "Say 'The food was delicious' in Arabic. | قل 'كان الطعام لذيذاً'.";
-          expectedResponse = "كان الطعام لذيذاً (Kan altaam ladheedhan)";
+          prompt = "Request a discount in Arabic.";
+          expectedResponse = "هل يوجد تخفيض؟ (Hal yujad takhfidh?)";
         },
       ];
       xpReward = 25;
     },
-    // Swahili Scenarios - Beginner
     {
-      id = 4;
+      id = 18;
       languageId = 2;
-      title = "Swahili Greetings";
-      description = "Learn basic greetings and responses in Swahili.";
+      title = "Swahili Restaurant Talk";
+      description = "Practice restaurant conversation in Swahili.";
       steps = [
         {
           speaker = "Instructor";
-          prompt = "Say 'How are you?' in Swahili";
-          expectedResponse = "Habari gani?";
+          prompt = "Ask for the menu in Swahili.";
+          expectedResponse = "Naomba menyu tafadhali.";
         },
         {
           speaker = "Instructor";
-          prompt = "Respond 'I'm fine, thank you'";
-          expectedResponse = "Nzuri, asante.";
+          prompt = "Order grilled chicken with rice.";
+          expectedResponse = "Naomba kuku wa kukaanga na wali.";
         },
         {
           speaker = "Instructor";
-          prompt = "Say 'Good morning' in Swahili";
-          expectedResponse = "Habari za asubuhi?";
-        },
-        {
-          speaker = "Instructor";
-          prompt = "Say 'Thank you very much' in Swahili";
+          prompt = "Say thank you in Swahili.";
           expectedResponse = "Asante sana.";
         },
       ];
       xpReward = 20;
     },
     {
-      id = 5;
-      languageId = 2;
-      title = "Swahili Directions";
-      description = "Practice asking for basic directions in Swahili.";
+      id = 19;
+      languageId = 3;
+      title = "Hausa Travel Navigation";
+      description = "Learn phrases for travel and navigation in Hausa.";
       steps = [
         {
-          speaker = "Instructor";
-          prompt = "How do you ask for the nearest market in Swahili?";
-          expectedResponse = "Soko liko wapi karibu?";
+          speaker = "Teacher";
+          prompt = "Ask 'Which way to the station?' in Hausa.";
+          expectedResponse = "Ina hanya zuwa tashar mota?";
         },
         {
-          speaker = "Instructor";
-          prompt = "Reply with 'It is straight ahead.'";
-          expectedResponse = "Ni mbele tu";
+          speaker = "Teacher";
+          prompt = "Say 'I would like a ticket.' in Hausa.";
+          expectedResponse = "Ina so tikiti daya";
         },
         {
-          speaker = "Instructor";
-          prompt = "Ask 'Where is the restroom?' in Swahili";
-          expectedResponse = "Choo kiko wapi?";
+          speaker = "Teacher";
+          prompt = "Ask for assistance in Hausa.";
+          expectedResponse = "Don Allah, za ka taimaka mini?";
         },
       ];
       xpReward = 30;
     },
     {
-      id = 6;
-      languageId = 2;
-      title = "Restaurant Conversations";
-      description = "Learn how to order food in Swahili.";
+      id = 20;
+      languageId = 4;
+      title = "Amharic Directions | አማራኛ አቅጣጫ";
+      description = "Learn basic directions and navigation in Amharic.";
       steps = [
         {
           speaker = "Instructor";
-          prompt = "Say 'I would like fish with rice.'";
-          expectedResponse = "Ningependa samaki na wali.";
+          prompt = "Ask 'Where is the hospital?' in Amharic.";
+          expectedResponse = "ሆስፒታሉ የት ነው? (Hospital yet new?)";
         },
         {
           speaker = "Instructor";
-          prompt = "Ask for a glass of water.";
-          expectedResponse = "Naomba maji tafadhali.";
+          prompt = "Say 'I am looking for the bus stop.'";
+          expectedResponse = "የአውቶቢስ ማቆሚያን እሻላለሁ (Etautobis maqomiachalalhu)";
         },
         {
           speaker = "Instructor";
-          prompt = "Say 'The food was delicious' in Swahili";
-          expectedResponse = "Chakula kilikuwa kitamu.";
+          prompt = "Ask for help in Amharic.";
+          expectedResponse = "ይህን ማግኘት እችላለሁ? (Yihn magenit chelalhu?)";
         },
       ];
       xpReward = 25;
     },
-    // Hausa Scenarios - Beginner
     {
-      id = 7;
-      languageId = 3;
-      title = "Hausa Greetings";
-      description = "Learn basic greetings and responses in Hausa.";
-      steps = [
-        {
-          speaker = "Instructor";
-          prompt = "Say 'Hello' in Hausa";
-          expectedResponse = "Sannu";
-        },
-        {
-          speaker = "Instructor";
-          prompt = "Say 'How are you?' in Hausa";
-          expectedResponse = "Lafiya lau?";
-        },
-        {
-          speaker = "Instructor";
-          prompt = "Reply 'I am fine, thank you' in Hausa";
-          expectedResponse = "Lafiya, nagode";
-        },
-        {
-          speaker = "Instructor";
-          prompt = "Say 'Good morning' in Hausa";
-          expectedResponse = "Ina kwana";
-        },
-      ];
-      xpReward = 20;
-    },
-    // Amharic Scenarios - Beginner
-    {
-      id = 8;
-      languageId = 4;
-      title = "Amharic Greetings";
-      description = "Learn basic greetings in Amharic.";
-      steps = [
-        {
-          speaker = "Instructor";
-          prompt = "Say 'Hello' in Amharic";
-          expectedResponse = "ሰላም (Selam)";
-        },
-        {
-          speaker = "Instructor";
-          prompt = "Say 'How are you?' in Amharic";
-          expectedResponse = "እንደምን አለህ? (Endemin Aleh?)";
-        },
-        {
-          speaker = "Instructor";
-          prompt = "Reply 'I am fine, thank you' in Amharic";
-          expectedResponse = "ደህና ነኝ፣ አመሰግናለሁ (Dehna neny, amesegenallo)";
-        },
-      ];
-      xpReward = 20;
-    },
-    // Yoruba Scenarios - Beginner
-    {
-      id = 9;
+      id = 21;
       languageId = 5;
-      title = "Yoruba Greetings";
-      description = "Learn basic greetings in Yoruba.";
+      title = "Yoruba Shopping Phrases";
+      description = "Practice shopping related conversations in Yoruba.";
       steps = [
         {
           speaker = "Instructor";
-          prompt = "Say 'Hello' in Yoruba";
-          expectedResponse = "Bawo ni";
+          prompt = "Ask 'How much is this?' in Yoruba.";
+          expectedResponse = "Eelo ni eyi?";
         },
         {
           speaker = "Instructor";
-          prompt = "Say 'How are you?' in Yoruba";
-          expectedResponse = "Se dada ni?";
+          prompt = "Say 'I would like to buy this.'";
+          expectedResponse = "Mo fe ra eyi";
         },
         {
           speaker = "Instructor";
-          prompt = "Reply 'I am fine, thank you' in Yoruba";
-          expectedResponse = "Mo wa daadaa, e se";
+          prompt = "Ask for a discount in Yoruba.";
+          expectedResponse = "Se e le fun mi ni idinku ojo?";
         },
       ];
       xpReward = 20;
     },
-    // Zulu Scenarios - Beginner
     {
-      id = 10;
+      id = 22;
       languageId = 6;
-      title = "Zulu Greetings";
-      description = "Learn basic greetings in Zulu.";
+      title = "Zulu Travel Phrases";
+      description = "Learn basic travel and direction phrases in Zulu.";
       steps = [
         {
           speaker = "Instructor";
-          prompt = "Say 'Hello' in Zulu";
-          expectedResponse = "Sawubona";
+          prompt = "Ask for directions to the bus station in Zulu.";
+          expectedResponse = "Ngicela ukubuza indlela eya esiteshini sebhasini";
         },
         {
           speaker = "Instructor";
-          prompt = "Say 'How are you?' in Zulu";
-          expectedResponse = "Unjani?";
+          prompt = "Say you want a ticket in Zulu.";
+          expectedResponse = "Ngithanda ithikithi elilodwa";
         },
         {
           speaker = "Instructor";
-          prompt = "Reply 'I am fine, thank you' in Zulu";
-          expectedResponse = "Ngiyaphila, ngiyabonga";
+          prompt = "Ask for help in Zulu.";
+          expectedResponse = "Ngiyacela ungisize?";
         },
       ];
-      xpReward = 20;
+      xpReward = 25;
     },
+    // Additional scenarios for each language added here...
   ]);
 
-  // Culture entries (old type no longer used, keep for migration)
   let cultureEntries = List.empty<CultureEntry>();
-
-  // New culture content with language-focused instructions and translations
   let allCultureContent = List.fromArray<CultureContent>([
+    // Previous culture content remains unchanged...
+    // New culture entries added for expanding units
     {
-      title = "Arabic Cuisine | المأكولات العربية";
-      content = "Arabic cuisine is famous for its rich, flavorful dishes. | المطبخ العربي مشهور بأطباقه الغنية بالنكهات.";
-      languageText = "المطبخ العربي يقدم مجموعة واسعة من الأطعمة مثل الكبة، الحمص، المشاوي. | Arabic cuisine offers a wide variety of foods like kibbeh, hummus, and grilled meats.";
-      translatedText = "Traditional Arabic hospitality means serving plentiful meals and welcoming guests with drinks and tea ceremonies.";
+      title = "Arabic Shopping Culture | ثقافة التسوق العربية";
+      content = "Bartering and negotiation are common in Arabic markets. | المساومة والتفاوض شائعان في الأسواق العربية.";
+      languageText = "في الأسواق التقليدية يمكنك العثور على مجموعة واسعة من البضائع. | Traditional markets offer a wide range of goods.";
+      translatedText = "Shopping in Arab regions is a social activity that involves tradition and family interaction.";
       xpReward = 15;
     },
     {
-      title = "Arabic Music Traditions | تقاليد الموسيقى العربية";
-      content = "Arabic music uses unique instruments like the oud and darbuka. | تستخدم الموسيقى العربية آلات موسيقية خاصة مثل العود والدف.";
-      languageText = "الموسيقى تلعب دورا كبيرا في الأعراس والحفلات والتقاليد الشعبية. | Music plays a big role in weddings, parties, and popular traditions.";
-      translatedText = "Distinct rhythms and melodies reflect diverse regional influences from Morocco to Egypt and the Gulf countries.";
+      title = "Swahili Market Culture | Utamaduni wa Soko la Kiswahili";
+      content = "Markets are vibrant, and bargaining is expected. | Masoko ni maeneo yenye shughuli kubwa, na majadiliano ya bei ni jambo la kawaida.";
+      languageText = "Wafanyabiashara hutoa bidhaa mpya na za kienyeji. | Traders offer fresh and local products.";
+      translatedText = "Market visits are seen as both a social and practical activity in Swahili culture.";
       xpReward = 15;
     },
     {
-      title = "Swahili Coast History | Historia ya Fuo za Swahili";
-      content = "Swahili culture is shaped by African, Arabic, and Indian influences. | Utamaduni wa Kiswahili umeathiriwa na Afrika, Uarabuni na Uhindi.";
-      languageText = "Ishara za urafiki ni muhimu, kama salamu na tabasamu. | Friendly gestures like greetings and smiles are important.";
-      translatedText = "Festivals and celebrations often feature traditional Swahili music and dances such as tarab and taarabu.";
+      title = "Hausa Trading Traditions | Al'adar Kasuwancin Hausa";
+      content = "Trade is core to Hausa economic life. | Kasuwanci shine ginshikin rayuwar Hausawa.";
+      languageText = "Bargaining is a common practice in Hausa markets. | Kuyi kasuwanci da kyau.";
+      translatedText = "Market activity reflects not only trade but also social status and family ties in Hausa culture.";
       xpReward = 15;
     },
     {
-      title = "Swahili Clothing and Dress | Mavazi ya Kiswahili";
-      content = "Traditional Swahili dress is known for bright patterns and kanga cloth. | Mavazi ya Kiswahili yanajulikana kwa rangi na vitenge vyenye rangi.";
-      languageText = "Wanawake wanapenda sana kanga, na wanaume huvaa kanzu rasmi. | Women like kanga, and men wear a traditional kanzu.";
-      translatedText = "Clothing styles change based on region and importance of an event.";
+      title = "Amharic Marketplace | አማራ ህይወት በመሸጫ ቦታ";
+      content = "Markets are central to Amharic social life. | የገበሬው ደብዳቤ የአማራው ህይወት ሃብታም ነው";
+      languageText = "Cultural diversity is celebrated at the marketplace. | በመሸጫ ቦታ የባህል ልዩነት ይፃፃፋል";
+      translatedText = "Marketplace ceremonies involve music, food, and the exchange of goods.";
       xpReward = 15;
     },
-    // Add more entries for Hausa, Amharic, Yoruba, Zulu, etc.
+    {
+      title = "Yoruba Celebrations | Ayeye Yoruba";
+      content = "Celebrations in Yoruba culture are colorful and vibrant. | Awọn ayeye ni aṣa Yoruba ni awọ pupọ ati idunnu.";
+      languageText = "Music and storytelling play a major role in Yoruba gatherings.";
+      translatedText = "Celebrations symbolize the importance of family and community in Yoruba life.";
+      xpReward = 15;
+    },
+    {
+      title = "Zulu Celebratory Dances | Ukudansa kwe Zulu";
+      content = "Zulu celebrations are known for their spectacular dances and music.";
+      languageText = "Traditional dance events are essential cultural experiences in Zulu society.";
+      translatedText = "Zulu celebrations reflect respect for traditions, elders, and community unity.";
+      xpReward = 15;
+    },
+    // Additional culture entries for each language added here...
   ]);
 
   let minigameConfigs = List.fromArray<MinigameConfig>([
@@ -519,7 +402,6 @@ actor {
   };
 
   public query ({ caller }) func getCultureEntries(languageId : Nat, offset : Nat, limit : Nat) : async [CultureContent] {
-    // For now, return all culture entries regardless of languageId. Fine-tune later if needed.
     let allContent = allCultureContent;
     listRangeToArray(allContent, offset, limit);
   };

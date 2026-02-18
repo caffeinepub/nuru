@@ -1,83 +1,89 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Nuru: Realistic mascot swap + target-language immersive learning content (frontend-only)",
+  "title": "Expand learning units and extend minigame duration",
   "requirements": [
     {
-      "id": "REQ-1",
-      "summary": "Add two new realistic Nuru mascot image assets without overwriting existing mascot files.",
-      "acceptanceCriteria": [
-        "Two new realistic mascot image files are produced in frontend/public/assets/generated with the filenames specified in imageRequirements.edits output targets.",
-        "The new mascot images look realistic (more lifelike rendering/shading/materials) while remaining clearly the same mascot character identity."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/public/assets/generated/nuru-mascot-head-realistic.dim_256x256.png",
-          "operation": "create",
-          "description": "Add the new realistic mascot head image as a static asset at frontend/public/assets/generated/nuru-mascot-head-realistic.dim_256x256.png (do not overwrite existing mascot images)."
-        },
-        {
-          "path": "frontend/public/assets/generated/nuru-mascot-waving-realistic.dim_1024x1024.png",
-          "operation": "create",
-          "description": "Add the new realistic waving mascot image as a static asset at frontend/public/assets/generated/nuru-mascot-waving-realistic.dim_1024x1024.png (do not overwrite existing mascot images)."
-        }
-      ]
-    },
-    {
       "id": "REQ-2",
-      "summary": "Replace existing mascot image references in the header and dashboard hero with the new realistic assets while preserving current sizing and layout.",
+      "summary": "Increase time limits for all minigames to make gameplay sessions longer",
       "acceptanceCriteria": [
-        "Header mascot image source is updated to the new realistic head image and renders correctly.",
-        "Dashboard hero mascot image source is updated to the new realistic waving image and renders correctly.",
-        "No layout shifts occur compared to the prior mascot placements (same approximate rendered dimensions and alignment)."
+        "Time limits in difficulty.ts are increased by at least 50% for all difficulty levels",
+        "All five minigame components reflect the extended time limits",
+        "Users have more time to complete each minigame round"
       ],
       "file_operations": [
         {
-          "path": "frontend/src/components/nuru/AppLayout.tsx",
+          "path": "frontend/src/utils/difficulty.ts",
           "operation": "modify",
-          "description": "Update the header/logo mascot <img> to use frontend/public/assets/generated/nuru-mascot-head-realistic.dim_256x256.png while keeping the existing className sizing/alignment to avoid layout shifts."
+          "description": "Increase the time limit values in the getDifficultyParams function by at least 50% for all difficulty levels (Beginner, Intermediate, Advanced). Update the timeLimit calculations for each game mode to provide users with substantially more time per session."
         },
         {
-          "path": "frontend/src/pages/DashboardPage.tsx",
+          "path": "frontend/src/components/minigames/WordMatchGame.tsx",
           "operation": "modify",
-          "description": "Update the dashboard hero waving mascot <img> to use frontend/public/assets/generated/nuru-mascot-waving-realistic.dim_1024x1024.png while keeping the existing className sizing/alignment to avoid layout shifts."
+          "description": "Verify that the component correctly uses the updated time limits from difficulty.ts. Ensure the timer display and countdown logic properly reflect the extended duration."
+        },
+        {
+          "path": "frontend/src/components/minigames/SentenceBuilderGame.tsx",
+          "operation": "modify",
+          "description": "Verify that the component correctly uses the updated time limits from difficulty.ts. Ensure the timer display and countdown logic properly reflect the extended duration."
+        },
+        {
+          "path": "frontend/src/components/minigames/VocabularyQuizGame.tsx",
+          "operation": "modify",
+          "description": "Verify that the component correctly uses the updated time limits from difficulty.ts. Ensure the timer display and countdown logic properly reflect the extended duration."
+        },
+        {
+          "path": "frontend/src/components/minigames/ListeningComprehensionGame.tsx",
+          "operation": "modify",
+          "description": "Verify that the component correctly uses the updated time limits from difficulty.ts. Ensure the timer display and countdown logic properly reflect the extended duration."
+        },
+        {
+          "path": "frontend/src/components/minigames/RepeatableChallenge.tsx",
+          "operation": "modify",
+          "description": "Verify that the component correctly uses the updated time limits from difficulty.ts. Ensure the timer display and countdown logic properly reflect the extended duration."
         }
       ]
     },
     {
       "id": "REQ-3",
-      "summary": "Make the Learning Path, Culture, and Conversation UI render culture content and conversation prompts primarily in the selected target language (with safe fallbacks when fields are missing).",
+      "summary": "Increase the number of questions or items per minigame session to extend gameplay duration",
       "acceptanceCriteria": [
-        "For each seeded language, culture entries delivered by the backend are written primarily in the target language.",
-        "For each seeded language, conversation scenario step prompts delivered by the backend are written primarily in the target language.",
-        "The Learning Path modal shows the updated target-language culture content and the updated target-language conversation prompts for the selected language without frontend crashes or missing content.",
-        "No backend schema migration is required; changes are limited to updating seeded/static content values."
+        "Word Match game has more word pairs per session",
+        "Sentence Builder has more sentences to construct",
+        "Vocabulary Quiz and Listening Comprehension have more questions per session",
+        "Repeatable Challenge has an increased question count",
+        "Item count scaling in difficulty.ts is adjusted upward"
       ],
       "file_operations": [
         {
-          "path": "frontend/src/utils/learningContent.ts",
-          "operation": "create",
-          "description": "Add a small helper for choosing what to render for culture content (prefer target-language fields like languageText when present; fall back to existing content fields), and for safely extracting optional translation fields without runtime errors."
+          "path": "frontend/src/utils/difficulty.ts",
+          "operation": "modify",
+          "description": "Increase the itemCount values in the getDifficultyParams function for all difficulty levels. Scale up the number of questions/items per session to make each minigame round substantially longer. Adjust the itemCount calculations to provide more content per gameplay session."
         },
         {
-          "path": "frontend/src/components/learning/LearningNodeModal.tsx",
+          "path": "frontend/src/components/minigames/WordMatchGame.tsx",
           "operation": "modify",
-          "description": "Update the culture node rendering to display target-language culture text first (using the helper to prefer languageText when available), with an optional secondary section for translatedText when present; keep current modal layout/scroll behavior and ensure no crashes if fields are absent."
+          "description": "Update the word pairs generation logic to use the increased itemCount from difficulty.ts. Ensure the game generates and displays more word pairs per session based on the updated difficulty parameters."
         },
         {
-          "path": "frontend/src/pages/CulturePage.tsx",
+          "path": "frontend/src/components/minigames/SentenceBuilderGame.tsx",
           "operation": "modify",
-          "description": "Update culture entry cards and the reading dialog to render the target-language culture text first (prefer languageText when available) and optionally show translatedText as a secondary/assistive view; ensure filtering and completion behaviors remain unchanged."
+          "description": "Update the sentence selection logic to use the increased itemCount from difficulty.ts. Ensure the game presents more sentences to construct per session based on the updated difficulty parameters."
         },
         {
-          "path": "frontend/src/pages/ConversationPage.tsx",
+          "path": "frontend/src/components/minigames/VocabularyQuizGame.tsx",
           "operation": "modify",
-          "description": "Ensure conversation step prompt/expectedResponse rendering is robust and consistently uses the scenario step fields delivered for the selected language; add defensive fallbacks (e.g., empty strings) to prevent missing-content crashes if any step fields are undefined."
+          "description": "Update the quiz question generation logic to use the increased itemCount from difficulty.ts. Ensure the game presents more vocabulary questions per session based on the updated difficulty parameters."
         },
         {
-          "path": "frontend/src/components/learning/learningPathModel.ts",
+          "path": "frontend/src/components/minigames/ListeningComprehensionGame.tsx",
           "operation": "modify",
-          "description": "Adjust learning path node title/preview text selection for culture nodes (where applicable) to align with target-language-first display (using the helper), while preserving unit structure, ordering, locking, and completion logic."
+          "description": "Update the listening question generation logic to use the increased itemCount from difficulty.ts. Ensure the game presents more listening comprehension questions per session based on the updated difficulty parameters."
+        },
+        {
+          "path": "frontend/src/components/minigames/RepeatableChallenge.tsx",
+          "operation": "modify",
+          "description": "Update the quiz question generation logic to use the increased itemCount from difficulty.ts. Ensure the challenge presents more questions per session based on the updated difficulty parameters."
         }
       ]
     }

@@ -7,7 +7,7 @@ import { Trophy, ArrowLeft, Volume2, CheckCircle2, XCircle } from 'lucide-react'
 import { useCompleteMinigame } from '../../hooks/useQueries';
 import { useInternetIdentity } from '../../hooks/useInternetIdentity';
 import { toast } from 'sonner';
-import { calculateDifficulty } from '../../utils/difficulty';
+import { calculateDifficulty, getGameModeScaling } from '../../utils/difficulty';
 import { GameMode } from '../../backend';
 
 interface ListeningComprehensionGameProps {
@@ -16,6 +16,7 @@ interface ListeningComprehensionGameProps {
   userLevel: number;
 }
 
+// Expanded listening questions for longer gameplay
 const listeningQuestions = {
   1: [ // Yoruba
     { phrase: 'Bawo ni o se wa?', question: 'What does this phrase mean?', answer: 'How are you?', options: ['How are you?', 'Good morning', 'Thank you', 'Goodbye'] },
@@ -23,6 +24,9 @@ const listeningQuestions = {
     { phrase: 'Ile-iwe wa nibo?', question: 'What is being asked?', answer: 'Where is the school?', options: ['Where is the school?', 'Where is home?', 'Where is the market?', 'Where is the church?'] },
     { phrase: 'E kaaro', question: 'When would you say this?', answer: 'In the morning', options: ['In the morning', 'In the evening', 'At night', 'At noon'] },
     { phrase: 'Mo nife re', question: 'What emotion is expressed?', answer: 'Love', options: ['Love', 'Anger', 'Sadness', 'Fear'] },
+    { phrase: 'Omo daadaa', question: 'What does this mean?', answer: 'Good child', options: ['Good child', 'Bad child', 'Smart child', 'Tall child'] },
+    { phrase: 'Nje lo wa', question: 'Where is the person?', answer: 'Outside', options: ['Outside', 'Inside', 'Upstairs', 'Downstairs'] },
+    { phrase: 'Mo wa ile', question: 'Where is the speaker going?', answer: 'Home', options: ['Home', 'School', 'Market', 'Church'] },
   ],
   2: [ // Swahili
     { phrase: 'Habari yako?', question: 'What does this phrase mean?', answer: 'How are you?', options: ['How are you?', 'Good morning', 'Thank you', 'Goodbye'] },
@@ -30,20 +34,26 @@ const listeningQuestions = {
     { phrase: 'Shule iko wapi?', question: 'What is being asked?', answer: 'Where is the school?', options: ['Where is the school?', 'Where is home?', 'Where is the market?', 'Where is the church?'] },
     { phrase: 'Asante sana', question: 'What is the speaker expressing?', answer: 'Gratitude', options: ['Gratitude', 'Anger', 'Sadness', 'Confusion'] },
     { phrase: 'Nakupenda', question: 'What emotion is expressed?', answer: 'Love', options: ['Love', 'Anger', 'Sadness', 'Fear'] },
+    { phrase: 'Mtoto mzuri', question: 'What does this mean?', answer: 'Good child', options: ['Good child', 'Bad child', 'Smart child', 'Tall child'] },
+    { phrase: 'Nje ya nyumba', question: 'Where is this location?', answer: 'Outside the house', options: ['Outside the house', 'Inside the house', 'On the roof', 'In the garden'] },
+    { phrase: 'Naenda nyumbani', question: 'Where is the speaker going?', answer: 'Home', options: ['Home', 'School', 'Market', 'Church'] },
   ],
 };
 
 export default function ListeningComprehensionGame({ config, onExit, userLevel }: ListeningComprehensionGameProps) {
   const { identity } = useInternetIdentity();
   const completeMinigame = useCompleteMinigame();
-  const [timeLeft, setTimeLeft] = useState(Number(config.timeLimit || 60));
+  
+  const modeScaling = getGameModeScaling(userLevel, 'listeningComprehension');
+  const difficulty = calculateDifficulty(userLevel, modeScaling);
+  
+  const [timeLeft, setTimeLeft] = useState(difficulty.timeLimit);
   const [score, setScore] = useState(0);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
   const [showResult, setShowResult] = useState(false);
   const [gameOver, setGameOver] = useState(false);
 
-  const difficulty = calculateDifficulty(userLevel, { timeLimit: Number(config.timeLimit || 60), itemCount: 5 });
   const languageId = Number(config.languageId);
   const allQuestions = listeningQuestions[languageId as keyof typeof listeningQuestions] || listeningQuestions[1];
   const questions = allQuestions.slice(0, difficulty.itemCount);
@@ -119,7 +129,7 @@ export default function ListeningComprehensionGame({ config, onExit, userLevel }
     }
   };
 
-  const progressPercent = (timeLeft / Number(config.timeLimit || 60)) * 100;
+  const progressPercent = (timeLeft / difficulty.timeLimit) * 100;
 
   return (
     <div className="max-w-4xl mx-auto space-y-6">

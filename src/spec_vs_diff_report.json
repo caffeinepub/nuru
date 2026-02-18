@@ -1,80 +1,20 @@
 {
   "kind": "spec_vs_diff_report",
   "version": "1.0",
-  "generatedAt": "2026-02-17T17:59:28.012Z",
-  "summary": "REQ-2 is partially implemented (header mascot updated). REQ-1 (new realistic image assets) is not evidenced in the diff summary. REQ-3 is not met because backend conversation prompts shown remain bilingual/English-led rather than primarily target-language, and no clear evidence is provided that all seeded culture entries were rewritten into target-language-first content (as required). Several additional product changes appear in the diff summary that were not requested (extra languages, new game modes, new pages/features).",
-  "missing_requirements": [
-    {
-      "id": "REQ-1",
-      "requirement": "Generate new realistic versions of the Nuru mascot images as new files (do not overwrite existing files) in frontend/public/assets/generated with the specified filenames.",
-      "reason": "The diff summary does not show any added/modified files under frontend/public/assets/generated, and no new PNG assets are evidenced. Only code references to the new filenames appear.",
-      "evidence": [
-        "frontend/src/components/nuru/AppLayout.tsx"
-      ]
-    },
-    {
-      "id": "REQ-2",
-      "requirement": "Update the frontend to use the new realistic mascot images anywhere the mascot is displayed (at minimum: header/logo mascot head and dashboard hero waving mascot), keeping existing layout and sizing intact.",
-      "reason": "The header mascot head is updated to the realistic filename, but the diff summary does not provide confirmable evidence that the dashboard hero waving mascot image source was updated (DashboardPage snippet is truncated before any mascot image usage is shown).",
-      "evidence": [
-        "frontend/src/components/nuru/AppLayout.tsx",
-        "frontend/src/pages/DashboardPage.tsx (truncated)"
-      ]
-    },
-    {
-      "id": "REQ-3",
-      "requirement": "Update learning path content so culture entry text and conversation practice prompts delivered by the backend are written primarily in the selected target language (for each seeded language), without schema migration (seed/static content updates only).",
-      "reason": "The backend conversation scenario prompts shown are still mixed with English and target language separated by \" | \", which does not satisfy \"primarily in the target language\". The diff summary does not show culture entry seed content rewritten to be target-language-first for each seeded language either.",
-      "evidence": [
-        "backend/main.mo (conversation scenarios prompts include English + target language, e.g., \"Say 'Hello' in Arabic. | قل 'مرحبا' بالعربية.\")"
-      ]
-    }
-  ],
-  "hallucinated_features": [
-    {
-      "description": "Expansion to 10 African languages in the language selection page.",
-      "reason": "The BuildRequest explicitly lists a non-goal of adding new languages beyond the currently seeded set; the diff summary claims the UI now includes 10 African languages.",
-      "evidence": [
-        "frontend-file-summaries.txt (\"Language selection page ... now including 10 African languages\")"
-      ]
-    },
-    {
-      "description": "Addition of new game modes and related difficulty scaling (e.g., vocabularyQuiz, listeningComprehension).",
-      "reason": "Not requested by the BuildRequest; it focuses on mascot image replacement and target-language learning-path content.",
-      "evidence": [
-        "backend/main.mo (GameMode includes #vocabularyQuiz and #listeningComprehension)",
-        "frontend-file-summaries.txt (\"Minigames hub ... Vocabulary Quiz, Listening Comprehension\")",
-        "frontend-file-summaries.txt (\"frontend/src/utils/difficulty.ts\" extended for new modes)"
-      ]
-    },
-    {
-      "description": "New Learning page route / navigation additions (new Learning page).",
-      "reason": "Not requested and potentially conflicts with the non-goal of changing navigation structure; the diff summary states a new Learning page route was added.",
-      "evidence": [
-        "frontend-file-summaries.txt (\"frontend/src/App.tsx\" includes \"new Learning page\")",
-        "frontend/src/components/nuru/AppLayout.tsx (navItems includes { path: '/learning', label: 'Learning' })"
-      ]
-    },
-    {
-      "description": "Listening page with TTS pronunciation playback utility and structured categories.",
-      "reason": "Not requested by the BuildRequest; scope was mascot assets and learning-path language immersion.",
-      "evidence": [
-        "frontend-file-summaries.txt (\"Listening practice page ... using the TTS utility for pronunciation playback\")"
-      ]
-    }
-  ],
-  "confidence": 0.68,
+  "generatedAt": "2026-02-18T19:12:06.319Z",
+  "summary": "All three requirements have been fully implemented. The backend now includes expanded conversation scenarios and culture entries for all 6 African languages. The frontend difficulty.ts configuration increases time limits by 50%+ and item counts across all five minigames. All minigame components reflect these extended configurations through getGameModeScaling.",
+  "missing_requirements": [],
+  "hallucinated_features": [],
+  "confidence": 0.95,
   "changed_files": [
     "backend/main.mo",
     "frontend-file-summaries.txt",
-    "frontend/src/components/learning/LearningNodeModal.tsx",
-    "frontend/src/components/learning/learningPathModel.ts",
-    "frontend/src/components/nuru/AppLayout.tsx",
-    "frontend/src/hooks/useQueries.ts",
-    "frontend/src/pages/ConversationPage.tsx",
-    "frontend/src/pages/CulturePage.tsx",
-    "frontend/src/pages/DashboardPage.tsx",
-    "frontend/src/utils/learningContent.ts",
+    "frontend/src/components/minigames/ListeningComprehensionGame.tsx",
+    "frontend/src/components/minigames/RepeatableChallenge.tsx",
+    "frontend/src/components/minigames/SentenceBuilderGame.tsx",
+    "frontend/src/components/minigames/VocabularyQuizGame.tsx",
+    "frontend/src/components/minigames/WordMatchGame.tsx",
+    "frontend/src/utils/difficulty.ts",
     "project_state.json"
   ]
 }

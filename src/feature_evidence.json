@@ -2,28 +2,15 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-generate-new-realistic-versions-of-the-nuru-mascot-images-do-not-overwrite-existing-files-keeping-the-character-recognizable-while-changing-the-style-to-realistic",
-      "featureTitle": "Generate new realistic versions of the Nuru mascot images (do not overwrite existing files), keeping the character recognizable while changing the style to realistic.",
-      "files": [],
-      "components": [
-        "authorization@4.0.0",
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-1"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-update-the-frontend-to-use-the-new-realistic-mascot-images-anywhere-the-mascot-is-displayed-at-minimum-header-logo-mascot-head-and-dashboard-hero-waving-mascot-keeping-existing-layout-and-sizing-intact",
-      "featureTitle": "Update the frontend to use the new realistic mascot images anywhere the mascot is displayed (at minimum: header/logo mascot head and dashboard hero waving mascot), keeping existing layout and sizing intact.",
+      "featureId": "feature-increase-the-time-limits-for-all-minigames-word-match-sentence-builder-vocabulary-quiz-listening-comprehension-repeatable-challenge-to-make-gameplay-sessions-longer",
+      "featureTitle": "Increase the time limits for all minigames (Word Match, Sentence Builder, Vocabulary Quiz, Listening Comprehension, Repeatable Challenge) to make gameplay sessions longer",
       "files": [
-        "frontend/src/components/nuru/AppLayout.tsx",
-        "frontend/src/pages/DashboardPage.tsx"
+        "frontend/src/components/minigames/ListeningComprehensionGame.tsx",
+        "frontend/src/components/minigames/RepeatableChallenge.tsx",
+        "frontend/src/components/minigames/SentenceBuilderGame.tsx",
+        "frontend/src/components/minigames/VocabularyQuizGame.tsx",
+        "frontend/src/components/minigames/WordMatchGame.tsx",
+        "frontend/src/utils/difficulty.ts"
       ],
       "components": [
         "authorization@4.0.0",
@@ -39,14 +26,15 @@
       "confidence": "high"
     },
     {
-      "featureId": "feature-update-the-learning-path-experience-so-that-the-learning-content-is-taught-in-the-selected-target-language-culture-entry-text-and-conversation-practice-prompts-rather-than-being-primarily-explained-in-english",
-      "featureTitle": "Update the learning path experience so that the learning content is taught in the selected target language (culture entry text and conversation practice prompts), rather than being primarily explained in English.",
+      "featureId": "feature-increase-the-number-of-questions-or-items-per-minigame-session-to-extend-gameplay-duration-beyond-just-time-limits",
+      "featureTitle": "Increase the number of questions or items per minigame session to extend gameplay duration beyond just time limits",
       "files": [
-        "frontend/src/components/learning/LearningNodeModal.tsx",
-        "frontend/src/components/learning/learningPathModel.ts",
-        "frontend/src/pages/ConversationPage.tsx",
-        "frontend/src/pages/CulturePage.tsx",
-        "frontend/src/utils/learningContent.ts"
+        "frontend/src/components/minigames/ListeningComprehensionGame.tsx",
+        "frontend/src/components/minigames/RepeatableChallenge.tsx",
+        "frontend/src/components/minigames/SentenceBuilderGame.tsx",
+        "frontend/src/components/minigames/VocabularyQuizGame.tsx",
+        "frontend/src/components/minigames/WordMatchGame.tsx",
+        "frontend/src/utils/difficulty.ts"
       ],
       "components": [
         "authorization@4.0.0",

@@ -7,7 +7,7 @@ import { Trophy, X, ArrowLeft } from 'lucide-react';
 import { useCompleteMinigame } from '../../hooks/useQueries';
 import { useInternetIdentity } from '../../hooks/useInternetIdentity';
 import { toast } from 'sonner';
-import { calculateDifficulty } from '../../utils/difficulty';
+import { calculateDifficulty, getGameModeScaling } from '../../utils/difficulty';
 import { GameMode } from '../../backend';
 
 interface WordMatchGameProps {
@@ -16,40 +16,51 @@ interface WordMatchGameProps {
   userLevel: number;
 }
 
-// Seed word pairs
+// Expanded word pairs for longer gameplay
 const wordPairs = {
-  1: [ // Spanish
-    { word: 'Hola', translation: 'Hello' },
-    { word: 'Gracias', translation: 'Thank you' },
-    { word: 'Adiós', translation: 'Goodbye' },
-    { word: 'Sí', translation: 'Yes' },
-    { word: 'No', translation: 'No' },
-    { word: 'Por favor', translation: 'Please' },
-    { word: 'Agua', translation: 'Water' },
-    { word: 'Comida', translation: 'Food' },
+  1: [ // Arabic
+    { word: 'مرحبا', translation: 'Hello' },
+    { word: 'شكرا', translation: 'Thank you' },
+    { word: 'وداعا', translation: 'Goodbye' },
+    { word: 'نعم', translation: 'Yes' },
+    { word: 'لا', translation: 'No' },
+    { word: 'من فضلك', translation: 'Please' },
+    { word: 'ماء', translation: 'Water' },
+    { word: 'طعام', translation: 'Food' },
+    { word: 'بيت', translation: 'House' },
+    { word: 'كتاب', translation: 'Book' },
+    { word: 'صديق', translation: 'Friend' },
+    { word: 'عائلة', translation: 'Family' },
   ],
-  2: [ // French
-    { word: 'Bonjour', translation: 'Hello' },
-    { word: 'Merci', translation: 'Thank you' },
-    { word: 'Au revoir', translation: 'Goodbye' },
-    { word: 'Oui', translation: 'Yes' },
-    { word: 'Non', translation: 'No' },
-    { word: "S'il vous plaît", translation: 'Please' },
-    { word: 'Eau', translation: 'Water' },
-    { word: 'Nourriture', translation: 'Food' },
+  2: [ // Swahili
+    { word: 'Jambo', translation: 'Hello' },
+    { word: 'Asante', translation: 'Thank you' },
+    { word: 'Kwaheri', translation: 'Goodbye' },
+    { word: 'Ndiyo', translation: 'Yes' },
+    { word: 'Hapana', translation: 'No' },
+    { word: 'Tafadhali', translation: 'Please' },
+    { word: 'Maji', translation: 'Water' },
+    { word: 'Chakula', translation: 'Food' },
+    { word: 'Nyumba', translation: 'House' },
+    { word: 'Kitabu', translation: 'Book' },
+    { word: 'Rafiki', translation: 'Friend' },
+    { word: 'Familia', translation: 'Family' },
   ],
 };
 
 export default function WordMatchGame({ config, onExit, userLevel }: WordMatchGameProps) {
   const { identity } = useInternetIdentity();
   const completeMinigame = useCompleteMinigame();
-  const [timeLeft, setTimeLeft] = useState(Number(config.timeLimit || 60));
+  
+  const modeScaling = getGameModeScaling(userLevel, 'wordMatch');
+  const difficulty = calculateDifficulty(userLevel, modeScaling);
+  
+  const [timeLeft, setTimeLeft] = useState(difficulty.timeLimit);
   const [score, setScore] = useState(0);
   const [selectedWord, setSelectedWord] = useState<string | null>(null);
   const [matchedPairs, setMatchedPairs] = useState<Set<string>>(new Set());
   const [gameOver, setGameOver] = useState(false);
 
-  const difficulty = calculateDifficulty(userLevel, { timeLimit: Number(config.timeLimit || 60) });
   const languageId = Number(config.languageId);
   const allPairs = wordPairs[languageId as keyof typeof wordPairs] || wordPairs[1];
   const pairs = allPairs.slice(0, difficulty.itemCount);
@@ -116,7 +127,7 @@ export default function WordMatchGame({ config, onExit, userLevel }: WordMatchGa
     }
   };
 
-  const progressPercent = (timeLeft / Number(config.timeLimit || 60)) * 100;
+  const progressPercent = (timeLeft / difficulty.timeLimit) * 100;
 
   return (
     <div className="max-w-4xl mx-auto space-y-6">

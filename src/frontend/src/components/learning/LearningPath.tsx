@@ -9,6 +9,13 @@ interface LearningPathProps {
 export default function LearningPath({ nodes, onNodeClick }: LearningPathProps) {
   let currentUnit = -1;
 
+  const handleNodeClick = (node: PathNode) => {
+    // Only trigger click for accessible (unlocked) nodes
+    if (!node.isLocked) {
+      onNodeClick(node);
+    }
+  };
+
   return (
     <div className="relative max-w-2xl mx-auto px-4">
       {/* Vertical path line */}
@@ -32,7 +39,7 @@ export default function LearningPath({ nodes, onNodeClick }: LearningPathProps) 
               )}
               <LearningPathNode
                 node={node}
-                onClick={() => onNodeClick(node)}
+                onClick={() => handleNodeClick(node)}
                 position={index % 2 === 0 ? 'left' : 'right'}
               />
             </div>

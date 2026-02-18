@@ -7,7 +7,7 @@ import { Trophy, ArrowLeft, Zap } from 'lucide-react';
 import { useCompleteMinigame } from '../../hooks/useQueries';
 import { useInternetIdentity } from '../../hooks/useInternetIdentity';
 import { toast } from 'sonner';
-import { calculateDifficulty } from '../../utils/difficulty';
+import { calculateDifficulty, getGameModeScaling } from '../../utils/difficulty';
 import { GameMode } from '../../backend';
 
 interface RepeatableChallengeProps {
@@ -15,25 +15,38 @@ interface RepeatableChallengeProps {
   userLevel: number;
 }
 
+// Expanded question pool for longer gameplay
 const questions = [
   { question: 'What is "Hello" in Spanish?', options: ['Hola', 'Adiós', 'Gracias', 'Por favor'], correct: 0 },
   { question: 'What is "Thank you" in French?', options: ['Bonjour', 'Merci', 'Au revoir', 'Oui'], correct: 1 },
   { question: 'What is "Goodbye" in Spanish?', options: ['Hola', 'Gracias', 'Adiós', 'Sí'], correct: 2 },
   { question: 'What is "Yes" in French?', options: ['Non', 'Merci', 'Bonjour', 'Oui'], correct: 3 },
   { question: 'What is "Please" in Spanish?', options: ['Gracias', 'Hola', 'Por favor', 'Adiós'], correct: 2 },
+  { question: 'What is "Water" in Arabic?', options: ['ماء', 'طعام', 'بيت', 'كتاب'], correct: 0 },
+  { question: 'What is "Food" in Swahili?', options: ['Maji', 'Chakula', 'Nyumba', 'Kitabu'], correct: 1 },
+  { question: 'What is "House" in Arabic?', options: ['ماء', 'طعام', 'بيت', 'كتاب'], correct: 2 },
+  { question: 'What is "Book" in Swahili?', options: ['Maji', 'Chakula', 'Nyumba', 'Kitabu'], correct: 3 },
+  { question: 'What is "Friend" in Arabic?', options: ['صديق', 'عائلة', 'مدرسة', 'سوق'], correct: 0 },
+  { question: 'What is "Family" in Swahili?', options: ['Rafiki', 'Familia', 'Shule', 'Soko'], correct: 1 },
+  { question: 'What is "School" in Arabic?', options: ['صديق', 'عائلة', 'مدرسة', 'سوق'], correct: 2 },
+  { question: 'What is "Market" in Swahili?', options: ['Rafiki', 'Familia', 'Shule', 'Soko'], correct: 3 },
+  { question: 'What is "Good morning" in Yoruba?', options: ['E kaaro', 'E kaasan', 'E ku irole', 'O dabo'], correct: 0 },
+  { question: 'What is "Good afternoon" in Yoruba?', options: ['E kaaro', 'E kaasan', 'E ku irole', 'O dabo'], correct: 1 },
 ];
 
 export default function RepeatableChallenge({ onExit, userLevel }: RepeatableChallengeProps) {
   const { identity } = useInternetIdentity();
   const completeMinigame = useCompleteMinigame();
   
-  const difficulty = calculateDifficulty(userLevel, { timeLimit: 45 });
+  const modeScaling = getGameModeScaling(userLevel, 'repeatableChallenge');
+  const difficulty = calculateDifficulty(userLevel, modeScaling);
+  
   const [timeLeft, setTimeLeft] = useState(difficulty.timeLimit);
   const [score, setScore] = useState(0);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [gameOver, setGameOver] = useState(false);
 
-  const totalQuestions = difficulty.itemCount;
+  const totalQuestions = Math.min(difficulty.itemCount, questions.length);
   const challengeQuestions = questions.slice(0, totalQuestions);
 
   useEffect(() => {

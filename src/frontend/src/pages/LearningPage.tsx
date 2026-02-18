@@ -2,10 +2,12 @@ import { useState } from 'react';
 import { useGetUserProgress, useGetCultureEntries, useGetConversationScenarios } from '../hooks/useQueries';
 import { useInternetIdentity } from '../hooks/useInternetIdentity';
 import { Skeleton } from '@/components/ui/skeleton';
-import { BookOpen } from 'lucide-react';
+import { BookOpen, Info } from 'lucide-react';
 import LearningPath from '../components/learning/LearningPath';
 import LearningNodeModal from '../components/learning/LearningNodeModal';
 import { buildLearningPath, type PathNode } from '../components/learning/learningPathModel';
+import { LEARNING_PATH_NODE_LIMIT } from '../components/learning/learningPathLimit';
+import { Alert, AlertDescription } from '@/components/ui/alert';
 
 export default function LearningPage() {
   const { identity } = useInternetIdentity();
@@ -42,6 +44,18 @@ export default function LearningPage() {
     progress ?? null
   );
 
+  // Apply node limit
+  const totalNodes = pathNodes.length;
+  const displayedNodes = pathNodes.slice(0, LEARNING_PATH_NODE_LIMIT);
+  const isLimited = totalNodes > LEARNING_PATH_NODE_LIMIT;
+
+  const handleNodeClick = (node: PathNode) => {
+    // Only open modal for unlocked nodes
+    if (!node.isLocked) {
+      setSelectedNode(node);
+    }
+  };
+
   return (
     <div className="space-y-8 max-w-4xl mx-auto pb-12">
       {/* Header */}
@@ -55,9 +69,20 @@ export default function LearningPage() {
         </p>
       </div>
 
+      {/* Limited Path Notice */}
+      {isLimited && (
+        <Alert className="max-w-2xl mx-auto">
+          <Info className="h-4 w-4" />
+          <AlertDescription>
+            The learning path is currently limited to {LEARNING_PATH_NODE_LIMIT} lessons. 
+            Showing {displayedNodes.length} of {totalNodes} available lessons.
+          </AlertDescription>
+        </Alert>
+      )}
+
       {/* Learning Path */}
-      {pathNodes.length > 0 ? (
-        <LearningPath nodes={pathNodes} onNodeClick={setSelectedNode} />
+      {displayedNodes.length > 0 ? (
+        <LearningPath nodes={displayedNodes} onNodeClick={handleNodeClick} />
       ) : (
         <div className="text-center py-12 space-y-4">
           <BookOpen className="h-16 w-16 mx-auto text-muted-foreground opacity-50" />

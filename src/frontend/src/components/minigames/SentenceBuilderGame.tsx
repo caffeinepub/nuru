@@ -7,7 +7,7 @@ import { Trophy, ArrowLeft, RotateCcw } from 'lucide-react';
 import { useCompleteMinigame } from '../../hooks/useQueries';
 import { useInternetIdentity } from '../../hooks/useInternetIdentity';
 import { toast } from 'sonner';
-import { calculateDifficulty } from '../../utils/difficulty';
+import { calculateDifficulty, getGameModeScaling } from '../../utils/difficulty';
 import { GameMode } from '../../backend';
 
 interface SentenceBuilderGameProps {
@@ -16,33 +16,43 @@ interface SentenceBuilderGameProps {
   userLevel: number;
 }
 
+// Expanded sentences for longer gameplay
 const sentences = {
-  1: [ // Spanish
-    { sentence: 'Hola, ¿cómo estás?', words: ['Hola', '¿cómo', 'estás?'] },
-    { sentence: 'Me llamo Juan', words: ['Me', 'llamo', 'Juan'] },
-    { sentence: 'Buenos días, señor', words: ['Buenos', 'días', 'señor'] },
-    { sentence: '¿Dónde está el baño?', words: ['¿Dónde', 'está', 'el', 'baño?'] },
-    { sentence: 'Gracias por todo', words: ['Gracias', 'por', 'todo'] },
+  1: [ // Arabic
+    { sentence: 'مرحبا كيف حالك؟', words: ['مرحبا', 'كيف', 'حالك؟'] },
+    { sentence: 'اسمي أحمد', words: ['اسمي', 'أحمد'] },
+    { sentence: 'صباح الخير يا سيدي', words: ['صباح', 'الخير', 'يا', 'سيدي'] },
+    { sentence: 'أين الحمام؟', words: ['أين', 'الحمام؟'] },
+    { sentence: 'شكرا جزيلا', words: ['شكرا', 'جزيلا'] },
+    { sentence: 'أنا من مصر', words: ['أنا', 'من', 'مصر'] },
+    { sentence: 'هل تتكلم العربية؟', words: ['هل', 'تتكلم', 'العربية؟'] },
+    { sentence: 'أريد ماء من فضلك', words: ['أريد', 'ماء', 'من', 'فضلك'] },
   ],
-  2: [ // French
-    { sentence: 'Bonjour, comment allez-vous?', words: ['Bonjour', 'comment', 'allez-vous?'] },
-    { sentence: 'Je m\'appelle Marie', words: ['Je', 'm\'appelle', 'Marie'] },
-    { sentence: 'Bonne journée, monsieur', words: ['Bonne', 'journée', 'monsieur'] },
-    { sentence: 'Où sont les toilettes?', words: ['Où', 'sont', 'les', 'toilettes?'] },
-    { sentence: 'Merci beaucoup', words: ['Merci', 'beaucoup'] },
+  2: [ // Swahili
+    { sentence: 'Habari yako?', words: ['Habari', 'yako?'] },
+    { sentence: 'Jina langu ni Amina', words: ['Jina', 'langu', 'ni', 'Amina'] },
+    { sentence: 'Habari za asubuhi', words: ['Habari', 'za', 'asubuhi'] },
+    { sentence: 'Choo kiko wapi?', words: ['Choo', 'kiko', 'wapi?'] },
+    { sentence: 'Asante sana', words: ['Asante', 'sana'] },
+    { sentence: 'Mimi ni kutoka Kenya', words: ['Mimi', 'ni', 'kutoka', 'Kenya'] },
+    { sentence: 'Je, unazungumza Kiswahili?', words: ['Je,', 'unazungumza', 'Kiswahili?'] },
+    { sentence: 'Nataka maji tafadhali', words: ['Nataka', 'maji', 'tafadhali'] },
   ],
 };
 
 export default function SentenceBuilderGame({ config, onExit, userLevel }: SentenceBuilderGameProps) {
   const { identity } = useInternetIdentity();
   const completeMinigame = useCompleteMinigame();
-  const [timeLeft, setTimeLeft] = useState(Number(config.timeLimit || 90));
+  
+  const modeScaling = getGameModeScaling(userLevel, 'sentenceBuilder');
+  const difficulty = calculateDifficulty(userLevel, modeScaling);
+  
+  const [timeLeft, setTimeLeft] = useState(difficulty.timeLimit);
   const [score, setScore] = useState(0);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedWords, setSelectedWords] = useState<string[]>([]);
   const [gameOver, setGameOver] = useState(false);
 
-  const difficulty = calculateDifficulty(userLevel, { timeLimit: Number(config.timeLimit || 90) });
   const languageId = Number(config.languageId);
   const allSentences = sentences[languageId as keyof typeof sentences] || sentences[1];
   const gameSentences = allSentences.slice(0, difficulty.itemCount);
@@ -109,7 +119,7 @@ export default function SentenceBuilderGame({ config, onExit, userLevel }: Sente
     }
   };
 
-  const progressPercent = (timeLeft / Number(config.timeLimit || 90)) * 100;
+  const progressPercent = (timeLeft / difficulty.timeLimit) * 100;
 
   return (
     <div className="max-w-4xl mx-auto space-y-6">
